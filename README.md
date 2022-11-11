@@ -138,9 +138,11 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 List of Ubuntu packages required to complete the project:
 
+sudo apt install *
 * git-all
 * libboost-all-dev
 * build-essential
+* cmake
 
 
 _No guarantee that this list is complete (Add other packages to the README)_
