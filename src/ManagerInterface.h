@@ -10,6 +10,7 @@
 
 namespace ClassProject {
 
+    //for our understanding of usage it's enough to understand that size_t is smth like int
     typedef size_t BDD_ID;
 
     class ManagerInterface {
