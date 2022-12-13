@@ -6,8 +6,8 @@
 
 using namespace ClassProject;
 
-const BDD_ID TrueID = 1;
-const BDD_ID FalseID = 0;
+BDD_ID TrueID;
+BDD_ID FalseID;
 //Creates
 BDD_ID Manager::createVar(const std::string &label)
 {
@@ -68,23 +68,8 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     //we use the function Compare to computed BDD to check if the computed table has entry with the same IDs.
     if (auto comp=CompareToComputedBDD(i,t,e);comp!=-1){return comp;}
 
-    BDD_ID ID_of_TopVar_temp;
-    //checking for the smallest id. STore the winning id to a temporary variable, this
-    if (i <=t)
-    {
-        if(i<=e)
-        {
-            ID_of_TopVar_temp=i;
-        }
-        else if (e<=t)
-        {
-            ID_of_TopVar_temp=e;
-        }
-        else
-        {
-            ID_of_TopVar_temp=t;
-        }
-    }
+    //Get the smallest value of topvariable from entry i, t and e
+    BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 
     //for rHigh we need cofactor true for i,t,e
     BDD_ID i_co_true= coFactorTrue(i,ID_of_TopVar_temp);
@@ -103,8 +88,8 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         return rHigh;
     }
     // the functions used in the next 2 lines are not declared yet,
-    BDD_ID r=find_or_add_unique_table();
-    void update_computed_table();
+    BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
+    update_computed_table("", rLow, rHigh, ID_of_TopVar_temp,r);
     return r;
 }
 //Pseudo-Code was given in the documentation
@@ -186,12 +171,26 @@ std::string Manager::getTopVarName(const BDD_ID &root)
 
 void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 {
-
+    //root itself is always reachable
+    nodes_of_root.insert(root);
+    if (isConstant(root)){return;}
+    else {
+        //We call findNodes again with high and low of variable, we use them as new root.
+        findNodes(BDDTable[root].High_Entry, nodes_of_root);
+        findNodes(BDDTable[root].Low_Entry, nodes_of_root);
+    }
 }
 
 void Manager::findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root)
 {
-
+    if (isConstant(root)){return;}
+    else {
+        //if root is no leaf node insert the TopVar of root as first vars of root.
+        vars_of_root.insert(BDDTable[root].TopVar_Entry);
+        //We call findVars again with high and low of variable, we use them as new root.
+        findVars(BDDTable[root].High_Entry, vars_of_root);
+        findVars(BDDTable[root].Low_Entry, vars_of_root);
+    }
 }
 
 size_t Manager::BDDTableSize()
@@ -224,15 +223,53 @@ BDD_ID Manager::GetLow(BDD_ID ID)
     return BDDTable[ID].Low_Entry;
 }
 
-BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
+BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
-
+    //for loop to check every element of the unique table
+    for (BDD_ID count=0; count<BDDTableSize(); count++)
+    {
+        if (BDDTable[count].TopVar_Entry==x && BDDTable[count].Low_Entry==rLow && BDDTable[count].High_Entry==rHigh)
+        {
+            return count;
+        }
+        else if(count == BDDTableSize())
+        {
+            return createNode("",count,rLow,rHigh,x);
+        }
+    }
 }
-void update_computed_table(f,g,h,r)
+void Manager::update_computed_table(std::string label, BDD_ID rLow,BDD_ID rHigh,BDD_ID Top, BDD_ID ID)
 {
-
+    BDDTable_comp.push_back(BDDEntry("", ID, rHigh, rLow, Top));
 }
-
+BDD_ID Manager::GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z)
+{
+    BDD_ID TopVar1 = BDDTable[x].TopVar_Entry;
+    BDD_ID TopVar2 = BDDTable[y].TopVar_Entry;
+    BDD_ID TopVar3 = BDDTable[z].TopVar_Entry;
+    if (TopVar1<=TopVar2)
+    {
+        if (TopVar1<=TopVar3)
+        {
+            return TopVar1;
+        }
+        else
+        {
+            return TopVar3;
+        }
+    }
+    else
+    {
+        if (TopVar2<=TopVar3)
+        {
+            return TopVar2;
+        }
+        else
+        {
+            return TopVar3;
+        }
+    }
+}
 //Done at first call of Manager .
 Manager::Manager(void)
 {

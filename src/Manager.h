@@ -85,7 +85,8 @@ namespace ClassProject {
             BDD_ID GetHigh(BDD_ID ID);
             BDD_ID GetLow(BDD_ID ID);
             BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
-            void update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h,BDD_ID r);
+            void update_computed_table(std::string label, BDD_ID rLow,BDD_ID rHigh,BDD_ID Top, BDD_ID ID);
+            BDD_ID GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z);
 
             //Constructor
             Manager(void);
