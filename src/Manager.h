@@ -33,6 +33,9 @@ namespace ClassProject {
         std::vector<BDDEntry> BDDTable;
         std::vector<BDDEntry> BDDTable_comp;
 
+        Manager();
+        virtual ~Manager();
+
         BDD_ID createVar(const std::string &label) override;
 
         const BDD_ID &True() override;
@@ -77,20 +80,18 @@ namespace ClassProject {
 
         size_t BDDTableSize() override;
 
-        private:
-            BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
-            const BDD_ID TrueID;
-            const BDD_ID FalseID;
-            BDD_ID CompareToComputedBDD(BDD_ID x, BDD_ID y, BDD_ID z);
-            BDD_ID GetHigh(BDD_ID ID);
-            BDD_ID GetLow(BDD_ID ID);
-            BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
-            void update_computed_table(std::string label, BDD_ID rLow,BDD_ID rHigh,BDD_ID Top, BDD_ID ID);
-            BDD_ID GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z);
+        BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
+        const BDD_ID TrueID;
+        const BDD_ID FalseID;
+        BDD_ID CompareToComputedBDD(BDD_ID x, BDD_ID y, BDD_ID z);
+        BDD_ID GetHigh(BDD_ID ID);
+        BDD_ID GetLow(BDD_ID ID);
+        BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
+        void update_computed_table(std::string label, BDD_ID rLow,BDD_ID rHigh,BDD_ID Top, BDD_ID ID);
+        BDD_ID GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z);
 
-            //Constructor
-            Manager(void);
-    }
+
+    };
 
 
 
