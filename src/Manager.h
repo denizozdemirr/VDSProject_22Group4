@@ -9,6 +9,8 @@
 #include <vector>
 namespace ClassProject {
 
+    BDD_ID TrueID=1;
+    BDD_ID FalseID=0;
     //At the moment we assume a constant number of Variables, because we need to specify the size of the
     //class array somehow. We basically have 2 power number of vars that can represented in CNF abc... ~ab~c and so on
     //Additionally we always have entry True and False and function, that's why we add 3
@@ -32,15 +34,14 @@ namespace ClassProject {
         public:
         std::vector<BDDEntry> BDDTable;
         std::vector<BDDEntry> BDDTable_comp;
-
         Manager();
         virtual ~Manager();
 
         BDD_ID createVar(const std::string &label) override;
 
-        const BDD_ID &True() override;
+        BDD_ID &True() override;
 
-        const BDD_ID &False() override;
+        BDD_ID &False() override;
 
         bool isConstant(BDD_ID f) override;
 
@@ -81,8 +82,6 @@ namespace ClassProject {
         size_t BDDTableSize() override;
 
         BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
-        const BDD_ID TrueID;
-        const BDD_ID FalseID;
         BDD_ID CompareToComputedBDD(BDD_ID x, BDD_ID y, BDD_ID z);
         BDD_ID GetHigh(BDD_ID ID);
         BDD_ID GetLow(BDD_ID ID);

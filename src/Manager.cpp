@@ -6,8 +6,16 @@
 
 using namespace ClassProject;
 
-const BDD_ID TrueID=1;
-const BDD_ID FalseID=0;
+//Done at first call of Manager .
+Manager::Manager(void)
+    {
+    BDD_ID trash;
+    trash=createNode("FALSE",0,0,0,0);
+    trash=createNode( "TRUE",1,1,1,1);
+    update_computed_table("FALSE",0,0,0,0);
+    update_computed_table("TRUE",1,1,1,1);
+}
+
 //Creates
 BDD_ID Manager::createVar(const std::string &label)
 {
@@ -161,7 +169,7 @@ BDD_ID Manager::nor2(BDD_ID a, BDD_ID b)
 //same logic again...
 BDD_ID Manager::xnor2(BDD_ID a, BDD_ID b)
 {
-    return ite(a,b,neg(b))
+    return ite(a,b,neg(b));
 }
 
 std::string Manager::getTopVarName(const BDD_ID &root)
@@ -269,13 +277,4 @@ BDD_ID Manager::GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z)
             return TopVar3;
         }
     }
-}
-//Done at first call of Manager .
-Manager::Manager(void)
-{
-    BDD_ID trash;
-    trash=createNode("FALSE",0,0,0,0);
-    trash=createNode( "TRUE",1,1,1,1);
-    update_computed_table("FALSE",0,0,0,0);
-    update_computed_table("TRUE",1,1,1,1);
 }
