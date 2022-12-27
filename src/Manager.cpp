@@ -12,9 +12,9 @@ Manager::Manager(void)
     BDD_ID trash;
     trash=createNode("FALSE",0,0,0,0);
     trash=createNode( "TRUE",1,1,1,1);
-    update_computed_table("FALSE",0,0,0,0);
-    update_computed_table("TRUE",1,1,1,1);
 }
+
+//Manager::~Manager(){}
 
 //Creates
 BDD_ID Manager::createVar(const std::string &label)
@@ -24,12 +24,12 @@ BDD_ID Manager::createVar(const std::string &label)
     return createNode(label,BDDTableSize(),False(),True(),BDDTableSize());
 }
 
-const BDD_ID &True()
+const BDD_ID &Manager::True()
 {
     return TrueID;
 }
 
-const BDD_ID &False()
+const BDD_ID &Manager::False()
 {
     return FalseID;
 }
@@ -59,7 +59,8 @@ BDD_ID Manager::topVar(BDD_ID f)
  */
 BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 {
-    //Pseudocode see script
+    //Pseudocode see script 2-17
+    //if terminal case
     if (i==True()){
         return t;}
     else if (i==False()){
@@ -68,16 +69,33 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         return i;}
     else if (t==e){
         return e;}
-    //not sure about the last terminal case
+    //not sure about the last terminal case, so far we have an neg, so I pretty sure this case is not needed
     /*
     else if (t==False() && e=True()){
         return ;}
     */
     //we use the function Compare to computed BDD to check if the computed table has entry with the same IDs.
-    if (auto comp=CompareToComputedBDD(i,t,e);comp!=-1){return comp;}
-
+    //computed table has entry i, t or e
+    BDD_ID comp = CompareToComputedBDD(i,t,e);
+    if (comp!=-1)
+    {
+        return 100;//return comp
+    }
+    return comp;
     //Get the smallest value of topvariable from entry i, t and e
-    BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
+    //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
+
+    //set top of i as first possible candidate for being the smallest number
+    BDD_ID ID_of_TopVar_temp=topVar(i);
+    //test if the topVar of t is not a constant (True/False) nad if t is smaller than the one of i
+    if(!isConstant(t) && topVar(t)<ID_of_TopVar_temp)
+    {
+        ID_of_TopVar_temp=topVar(t);
+    }
+    if(!isConstant(e) && topVar(e)<ID_of_TopVar_temp)
+    {
+        ID_of_TopVar_temp=topVar(e);
+    }
 
     //for rHigh we need cofactor true for i,t,e
     BDD_ID i_co_true= coFactorTrue(i,ID_of_TopVar_temp);
@@ -92,19 +110,22 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID rHigh = ite(i_co_true,t_co_true,e_co_true);
     BDD_ID rLow = ite(i_co_false,t_co_false,e_co_false);
 
-    if (rHigh==rLow){
-        return rHigh;
+    if (rHigh==rLow)
+    {
+        BDD_ID rReturn =rHigh;
+        return 200;//return rHigh;
     }
-    // the functions used in the next 2 lines are not declared yet,
     BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
-    update_computed_table("", rLow, rHigh, ID_of_TopVar_temp,r);
-    return r;
+
+    update_computed_table(i, t, e,r);
+
+    return 300;
 }
 //Pseudo-Code was given in the documentation
 BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 {
     if (isConstant(f)){return f;}
-    if (topVar(f)==x) {return GetHigh(f);}
+    if (topVar(f)==x) {return x;}
     else
     {
         BDD_ID T = coFactorTrue(GetHigh(f),x);
@@ -209,16 +230,20 @@ size_t Manager::BDDTableSize()
 BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
-    BDDTable.push_back(BDDEntry(NodeName, NodeID, NoteLow, NoteHigh, NoteTop));
+    BDDTable.push_back(BDDEntry(NodeName, NodeID, NoteHigh, NoteLow, NoteTop));
     //ID is always position -1
     return BDDTableSize() -1;
 }
 
-BDD_ID Manager::CompareToComputedBDD(BDD_ID x, BDD_ID y, BDD_ID z)
+// Computed Table has Entry for (f,g,h)
+BDD_ID Manager::CompareToComputedBDD(BDD_ID f, BDD_ID g, BDD_ID h)
 {
-    for (auto item : BDDTable_comp)
-        if (item.TopVar_Entry==x && item.Low_Entry ==y && item.High_Entry ==z) {return item.BDD_ID_Entry;}
-    return -1;
+    for (auto item : COMPTable)
+        if (item.f==f && item.g ==g && item.h ==h)
+        {
+            return item.r;
+        }
+        return -1;
 }
 
 BDD_ID Manager::GetHigh(BDD_ID ID)
@@ -234,7 +259,7 @@ BDD_ID Manager::GetLow(BDD_ID ID)
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
-    for (BDD_ID count=0; count<BDDTableSize(); count++)
+    for (BDD_ID count=0; count<=BDDTableSize(); count++)
     {
         if (BDDTable[count].TopVar_Entry==x && BDDTable[count].Low_Entry==rLow && BDDTable[count].High_Entry==rHigh)
         {
@@ -242,24 +267,26 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
         }
         else if(count == BDDTableSize())
         {
+
             return createNode("",count,rLow,rHigh,x);
         }
     }
 }
-void Manager::update_computed_table(std::string label, BDD_ID rLow,BDD_ID rHigh,BDD_ID Top, BDD_ID ID)
+void Manager::update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h, BDD_ID r)
 {
-    BDDTable_comp.push_back(BDDEntry("", ID, rHigh, rLow, Top));
+    COMPTable.push_back(ComputedEntry(f,g,h,r));
 }
+/*
 BDD_ID Manager::GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z)
 {
-    BDD_ID TopVar1 = BDDTable[x].TopVar_Entry;
-    BDD_ID TopVar2 = BDDTable[y].TopVar_Entry;
-    BDD_ID TopVar3 = BDDTable[z].TopVar_Entry;
+    BDD_ID TopVar1 = topVar(x);
+    BDD_ID TopVar2 = topVar(y);
+    BDD_ID TopVar3 = topVar(z);
     if (TopVar1<=TopVar2)
     {
         if (TopVar1<=TopVar3)
         {
-            return TopVar1;
+           return TopVar1;
         }
         else
         {
@@ -278,3 +305,4 @@ BDD_ID Manager::GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z)
         }
     }
 }
+*/
