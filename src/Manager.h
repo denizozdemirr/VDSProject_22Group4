@@ -102,7 +102,6 @@ namespace ClassProject {
         size_t BDDTableSize() override;
 
         BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
-        BDD_ID CompareToComputedBDD(BDD_ID x, BDD_ID y, BDD_ID z);
         BDD_ID GetHigh(BDD_ID ID);
         BDD_ID GetLow(BDD_ID ID);
         BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);

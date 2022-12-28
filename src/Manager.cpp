@@ -36,7 +36,11 @@ const BDD_ID &Manager::False()
 
 bool Manager::isConstant(BDD_ID f)
 {
-    return f==False() || f==True();
+    if (f==False() || f==True())
+    {
+        return True();
+    }
+    return False();
 }
 
 bool Manager::isVariable(BDD_ID x)
@@ -76,12 +80,14 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     */
     //we use the function Compare to computed BDD to check if the computed table has entry with the same IDs.
     //computed table has entry i, t or e
-    BDD_ID comp = CompareToComputedBDD(i,t,e);
-    if (comp!=-1)
+    for (int i = 0; i < COMPTable.size(); i++)
     {
-        return 100;//return comp
+        if (COMPTable[i].f == i && COMPTable[i].g == t && COMPTable[i].h == e)
+        {
+            return COMPTable[i].r;
+        }
+
     }
-    return comp;
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 
@@ -107,25 +113,33 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID t_co_false= coFactorFalse(t,ID_of_TopVar_temp);
     BDD_ID e_co_false= coFactorFalse(e,ID_of_TopVar_temp);
 
+
     BDD_ID rHigh = ite(i_co_true,t_co_true,e_co_true);
     BDD_ID rLow = ite(i_co_false,t_co_false,e_co_false);
 
     if (rHigh==rLow)
     {
         BDD_ID rReturn =rHigh;
-        return 200;//return rHigh;
+        return rHigh;//return rHigh;
     }
     BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
 
     update_computed_table(i, t, e,r);
 
-    return 300;
+    return r;
 }
 //Pseudo-Code was given in the documentation
 BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 {
-    if (isConstant(f)){return f;}
-    if (topVar(f)==x) {return x;}
+    //Check if f is a constant (true or false)
+    if (isConstant(f))
+    {
+        return f;
+    }
+    if (topVar(f)==x)
+    {
+        return GetHigh(f);
+    }
     else
     {
         BDD_ID T = coFactorTrue(GetHigh(f),x);
@@ -136,8 +150,14 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 //Pseudo-Code was given in the documentation
 BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
 {
-    if (isConstant(f)){return f;}
-    if (topVar(f)==x) {return GetLow(f);}
+    if (isConstant(f))
+    {
+        return f;
+    }
+    if (topVar(f)==x)
+    {
+        return GetLow(f);
+    }
     else
     {
         BDD_ID T = coFactorFalse(GetHigh(f),x);
@@ -236,16 +256,27 @@ BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, 
 }
 
 // Computed Table has Entry for (f,g,h)
-BDD_ID Manager::CompareToComputedBDD(BDD_ID f, BDD_ID g, BDD_ID h)
+/*bool Manager::CompareToComputedBDD(BDD_ID f, BDD_ID g, BDD_ID h)
 {
+    for (int i = 0; i < COMPTable.size(); i++)
+    {
+        if (COMPTable[i].f == f && COMPTable[i].g == g && COMPTable[i].h == h)
+        {
+            return COMPTable[i].r;
+        }
+
+    }
+    return 2;
+    /*
     for (auto item : COMPTable)
         if (item.f==f && item.g ==g && item.h ==h)
         {
             return item.r;
         }
         return -1;
-}
 
+}
+*/
 BDD_ID Manager::GetHigh(BDD_ID ID)
 {
     return BDDTable[ID].High_Entry;

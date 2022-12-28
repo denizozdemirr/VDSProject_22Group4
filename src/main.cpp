@@ -9,6 +9,8 @@
 
 int main(int argc, char* argv[])
 {
+    //f=(a+b)*c*d
+    //first of
     std::cout << "Nothing implemented, yet" << std::endl;
 }
 
