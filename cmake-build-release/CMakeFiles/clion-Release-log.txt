@@ -1,0 +1,14 @@
+/home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/dom/clion-2022.3/bin/ninja/linux/ninja -G Ninja -S /home/dom/VDSProject_22Group4 -B /home/dom/VDSProject_22Group4/cmake-build-release
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/dom/VDSProject_22Group4/gtest/googletest-download
+[1/7] Performing update step for 'googletest'
+[2/7] No patch step for 'googletest'
+[3/7] No configure step for 'googletest'
+[4/7] No build step for 'googletest'
+[5/7] No install step for 'googletest'
+[6/7] No test step for 'googletest'
+[7/7] Completed 'googletest'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/dom/VDSProject_22Group4/cmake-build-release

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "/home/dom/VDSProject_22Group4/gtest/googletest-build",
+		"source" : "gtest/googletest-src"
+	}
+}

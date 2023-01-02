@@ -45,6 +45,8 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/dom/VDSProject_22Group4/cmake-build-debug/src/test/cmake_install.cmake")
+  include("/home/dom/VDSProject_22Group4/cmake-build-debug/src/bench/cmake_install.cmake")
+  include("/home/dom/VDSProject_22Group4/cmake-build-debug/src/verify/cmake_install.cmake")
 
 endif()
 

@@ -1,0 +1,8 @@
+digraph BDD {
+center = true;
+{ rank = same; { node [style=invis]; "T" };
+ { node [shape=box,fontsize=12]; "0"; }
+  { node [shape=box,fontsize=12]; "1"; }
+}
+edge [style = invis]; {"T"; }
+}

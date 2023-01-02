@@ -55,8 +55,6 @@ build CMakeFiles/VDSProject.dir/src/main.cpp.o: CXX_COMPILER__VDSProject_Debug /
   INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
   OBJECT_DIR = CMakeFiles/VDSProject.dir
   OBJECT_FILE_DIR = CMakeFiles/VDSProject.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/VDSProject.dir/
-  TARGET_PDB = VDSProject.pdb
 
 
 # =============================================================================
@@ -73,9 +71,8 @@ build VDSProject: CXX_EXECUTABLE_LINKER__VDSProject_Debug CMakeFiles/VDSProject.
   OBJECT_DIR = CMakeFiles/VDSProject.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/VDSProject.dir/
   TARGET_FILE = VDSProject
-  TARGET_PDB = VDSProject.pdb
+  TARGET_PDB = VDSProject.dbg
 
 
 #############################################
@@ -232,8 +229,6 @@ build /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles
   INCLUDES = -I/home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/include -I/home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/include -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock.dir
   OBJECT_FILE_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock.dir/src
-  TARGET_COMPILE_PDB = lib/libgmockpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgmockpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -248,9 +243,8 @@ build lib/libgmock.a: CXX_STATIC_LIBRARY_LINKER__gmock_Debug /home/dom/VDSProjec
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgmockpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgmock.a
-  TARGET_PDB = bin/libgmockpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gmock.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target gmock_main
@@ -267,8 +261,6 @@ build /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles
   INCLUDES = -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/include -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/include -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock_main.dir
   OBJECT_FILE_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src
-  TARGET_COMPILE_PDB = lib/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -283,9 +275,8 @@ build lib/libgmock_main.a: CXX_STATIC_LIBRARY_LINKER__gmock_main_Debug /home/dom
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googlemock/CMakeFiles/gmock_main.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgmock_main.a
-  TARGET_PDB = bin/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gmock_main.a.dbg
 
 
 #############################################
@@ -372,8 +363,6 @@ build /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles
   INCLUDES = -I/home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/include -I/home/dom/VDSProject_22Group4/gtest/googletest-src/googletest
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest.dir/src
-  TARGET_COMPILE_PDB = lib/libgtestpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgtestpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -388,9 +377,8 @@ build lib/libgtest.a: CXX_STATIC_LIBRARY_LINKER__gtest_Debug /home/dom/VDSProjec
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgtestpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgtest.a
-  TARGET_PDB = bin/libgtestpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gtest.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target gtest_main
@@ -407,8 +395,6 @@ build /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles
   INCLUDES = -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/include -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest_main.dir
   OBJECT_FILE_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest_main.dir/src
-  TARGET_COMPILE_PDB = lib/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -423,9 +409,8 @@ build lib/libgtest_main.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug /home/dom
   OBJECT_DIR = /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/CMakeFiles/gtest_main.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgtest_main.a
-  TARGET_PDB = bin/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gtest_main.a.dbg
 
 
 #############################################
@@ -512,8 +497,6 @@ build src/CMakeFiles/Manager.dir/Manager.cpp.o: CXX_COMPILER__Manager_Debug /hom
   INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
   OBJECT_DIR = src/CMakeFiles/Manager.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Manager.dir
-  TARGET_COMPILE_PDB = src/CMakeFiles/Manager.dir/Manager.pdb
-  TARGET_PDB = src/libManager.pdb
 
 
 # =============================================================================
@@ -528,9 +511,8 @@ build src/libManager.a: CXX_STATIC_LIBRARY_LINKER__Manager_Debug src/CMakeFiles/
   OBJECT_DIR = src/CMakeFiles/Manager.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = src/CMakeFiles/Manager.dir/Manager.pdb
   TARGET_FILE = src/libManager.a
-  TARGET_PDB = src/libManager.pdb
+  TARGET_PDB = Manager.a.dbg
 
 
 #############################################
@@ -617,8 +599,6 @@ build src/test/CMakeFiles/VDSProject_test.dir/main_test.cpp.o: CXX_COMPILER__VDS
   INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/include -isystem /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest
   OBJECT_DIR = src/test/CMakeFiles/VDSProject_test.dir
   OBJECT_FILE_DIR = src/test/CMakeFiles/VDSProject_test.dir
-  TARGET_COMPILE_PDB = src/test/CMakeFiles/VDSProject_test.dir/
-  TARGET_PDB = src/test/VDSProject_test.pdb
 
 
 # =============================================================================
@@ -635,9 +615,8 @@ build src/test/VDSProject_test: CXX_EXECUTABLE_LINKER__VDSProject_test_Debug src
   OBJECT_DIR = src/test/CMakeFiles/VDSProject_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = src/test/CMakeFiles/VDSProject_test.dir/
   TARGET_FILE = src/test/VDSProject_test
-  TARGET_PDB = src/test/VDSProject_test.pdb
+  TARGET_PDB = VDSProject_test.dbg
 
 
 #############################################
@@ -705,11 +684,270 @@ build src/test/CMakeFiles/install/strip.util: CUSTOM_COMMAND src/test/all
 build src/test/install/strip: phony src/test/CMakeFiles/install/strip.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/dom/VDSProject_22Group4/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target Benchmark
+
+
+#############################################
+# Order-only phony target for Benchmark
+
+build cmake_object_order_depends_target_Benchmark: phony || src/bench/CMakeFiles/Benchmark.dir
+
+build src/bench/CMakeFiles/Benchmark.dir/BenchParser.cpp.o: CXX_COMPILER__Benchmark_Debug /home/dom/VDSProject_22Group4/src/bench/BenchParser.cpp || cmake_object_order_depends_target_Benchmark
+  DEP_FILE = src/bench/CMakeFiles/Benchmark.dir/BenchParser.cpp.o.d
+  FLAGS = -fPIC -std=c++17   -g -fdiagnostics-color=always
+  INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/bench/CMakeFiles/Benchmark.dir
+  OBJECT_FILE_DIR = src/bench/CMakeFiles/Benchmark.dir
+
+build src/bench/CMakeFiles/Benchmark.dir/BenchmarkLib.cpp.o: CXX_COMPILER__Benchmark_Debug /home/dom/VDSProject_22Group4/src/bench/BenchmarkLib.cpp || cmake_object_order_depends_target_Benchmark
+  DEP_FILE = src/bench/CMakeFiles/Benchmark.dir/BenchmarkLib.cpp.o.d
+  FLAGS = -fPIC -std=c++17   -g -fdiagnostics-color=always
+  INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/bench/CMakeFiles/Benchmark.dir
+  OBJECT_FILE_DIR = src/bench/CMakeFiles/Benchmark.dir
+
+build src/bench/CMakeFiles/Benchmark.dir/CircuitToBDD.cpp.o: CXX_COMPILER__Benchmark_Debug /home/dom/VDSProject_22Group4/src/bench/CircuitToBDD.cpp || cmake_object_order_depends_target_Benchmark
+  DEP_FILE = src/bench/CMakeFiles/Benchmark.dir/CircuitToBDD.cpp.o.d
+  FLAGS = -fPIC -std=c++17   -g -fdiagnostics-color=always
+  INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/bench/CMakeFiles/Benchmark.dir
+  OBJECT_FILE_DIR = src/bench/CMakeFiles/Benchmark.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target Benchmark
+
+
+#############################################
+# Link the static library src/bench/libBenchmark.a
+
+build src/bench/libBenchmark.a: CXX_STATIC_LIBRARY_LINKER__Benchmark_Debug src/bench/CMakeFiles/Benchmark.dir/BenchParser.cpp.o src/bench/CMakeFiles/Benchmark.dir/BenchmarkLib.cpp.o src/bench/CMakeFiles/Benchmark.dir/CircuitToBDD.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -fPIC -std=c++17   -g
+  OBJECT_DIR = src/bench/CMakeFiles/Benchmark.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/bench/libBenchmark.a
+  TARGET_PDB = Benchmark.a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target VDSProject_bench
+
+
+#############################################
+# Order-only phony target for VDSProject_bench
+
+build cmake_object_order_depends_target_VDSProject_bench: phony || cmake_object_order_depends_target_Benchmark cmake_object_order_depends_target_Manager
+
+build src/bench/CMakeFiles/VDSProject_bench.dir/main_bench.cpp.o: CXX_COMPILER__VDSProject_bench_Debug /home/dom/VDSProject_22Group4/src/bench/main_bench.cpp || cmake_object_order_depends_target_VDSProject_bench
+  DEP_FILE = src/bench/CMakeFiles/VDSProject_bench.dir/main_bench.cpp.o.d
+  FLAGS = -fPIC -std=c++17   -g -fdiagnostics-color=always
+  INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/bench/CMakeFiles/VDSProject_bench.dir
+  OBJECT_FILE_DIR = src/bench/CMakeFiles/VDSProject_bench.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target VDSProject_bench
+
+
+#############################################
+# Link the executable src/bench/VDSProject_bench
+
+build src/bench/VDSProject_bench: CXX_EXECUTABLE_LINKER__VDSProject_bench_Debug src/bench/CMakeFiles/VDSProject_bench.dir/main_bench.cpp.o | src/libManager.a src/bench/libBenchmark.a || src/bench/libBenchmark.a src/libManager.a
+  FLAGS = -fPIC -std=c++17   -g
+  LINK_LIBRARIES = -Wl,-rpath,/home/dom/VDSProject_22Group4/lib:/home/dom/VDSProject_22Group4/src:/home/dom/VDSProject_22Group4/src/test:/home/dom/VDSProject_22Group4/src/bench:/home/dom/VDSProject_22Group4/src/verify  src/libManager.a  src/bench/libBenchmark.a
+  LINK_PATH = -L/home/dom/VDSProject_22Group4/lib   -L/home/dom/VDSProject_22Group4/src   -L/home/dom/VDSProject_22Group4/src/test   -L/home/dom/VDSProject_22Group4/src/bench   -L/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/bench/CMakeFiles/VDSProject_bench.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/bench/VDSProject_bench
+  TARGET_PDB = VDSProject_bench.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/bench/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/bench/edit_cache: phony src/bench/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/bench/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/dom/VDSProject_22Group4 -B/home/dom/VDSProject_22Group4/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/bench/rebuild_cache: phony src/bench/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build src/bench/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build src/bench/CMakeFiles/install.util: CUSTOM_COMMAND src/bench/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build src/bench/install: phony src/bench/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build src/bench/CMakeFiles/install/local.util: CUSTOM_COMMAND src/bench/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build src/bench/install/local: phony src/bench/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build src/bench/CMakeFiles/install/strip.util: CUSTOM_COMMAND src/bench/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build src/bench/install/strip: phony src/bench/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/dom/VDSProject_22Group4/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target VDSProject_verify
+
+
+#############################################
+# Order-only phony target for VDSProject_verify
+
+build cmake_object_order_depends_target_VDSProject_verify: phony || src/verify/CMakeFiles/VDSProject_verify.dir
+
+build src/verify/CMakeFiles/VDSProject_verify.dir/main_verify.cpp.o: CXX_COMPILER__VDSProject_verify_Debug /home/dom/VDSProject_22Group4/src/verify/main_verify.cpp || cmake_object_order_depends_target_VDSProject_verify
+  DEP_FILE = src/verify/CMakeFiles/VDSProject_verify.dir/main_verify.cpp.o.d
+  FLAGS = -fPIC -std=c++17   -g -fdiagnostics-color=always
+  INCLUDES = -I/home/dom/VDSProject_22Group4/lib -I/home/dom/VDSProject_22Group4/src -I/home/dom/VDSProject_22Group4/src/test -I/home/dom/VDSProject_22Group4/src/bench -I/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/verify/CMakeFiles/VDSProject_verify.dir
+  OBJECT_FILE_DIR = src/verify/CMakeFiles/VDSProject_verify.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target VDSProject_verify
+
+
+#############################################
+# Link the executable src/verify/VDSProject_verify
+
+build src/verify/VDSProject_verify: CXX_EXECUTABLE_LINKER__VDSProject_verify_Debug src/verify/CMakeFiles/VDSProject_verify.dir/main_verify.cpp.o
+  FLAGS = -fPIC -std=c++17   -g
+  LINK_PATH = -L/home/dom/VDSProject_22Group4/lib   -L/home/dom/VDSProject_22Group4/src   -L/home/dom/VDSProject_22Group4/src/test   -L/home/dom/VDSProject_22Group4/src/bench   -L/home/dom/VDSProject_22Group4/src/verify
+  OBJECT_DIR = src/verify/CMakeFiles/VDSProject_verify.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/verify/VDSProject_verify
+  TARGET_PDB = VDSProject_verify.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/verify/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/verify/edit_cache: phony src/verify/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/verify/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/dom/VDSProject_22Group4 -B/home/dom/VDSProject_22Group4/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/verify/rebuild_cache: phony src/verify/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build src/verify/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build src/verify/CMakeFiles/install.util: CUSTOM_COMMAND src/verify/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build src/verify/install: phony src/verify/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build src/verify/CMakeFiles/install/local.util: CUSTOM_COMMAND src/verify/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build src/verify/install/local: phony src/verify/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build src/verify/CMakeFiles/install/strip.util: CUSTOM_COMMAND src/verify/all
+  COMMAND = cd /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify && /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build src/verify/install/strip: phony src/verify/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
+
+build Benchmark: phony src/bench/libBenchmark.a
 
 build Manager: phony src/libManager.a
 
+build VDSProject_bench: phony src/bench/VDSProject_bench
+
 build VDSProject_test: phony src/test/VDSProject_test
+
+build VDSProject_verify: phony src/verify/VDSProject_verify
 
 build gmock: phony lib/libgmock.a
 
@@ -718,6 +956,8 @@ build gmock_main: phony lib/libgmock_main.a
 build gtest: phony lib/libgtest.a
 
 build gtest_main: phony lib/libgtest_main.a
+
+build libBenchmark.a: phony src/bench/libBenchmark.a
 
 build libManager.a: phony src/libManager.a
 
@@ -744,7 +984,14 @@ build all: phony VDSProject src/all
 #############################################
 # Folder: /home/dom/VDSProject_22Group4/cmake-build-debug/src
 
-build src/all: phony src/libManager.a src/test/all
+build src/all: phony src/libManager.a src/test/all src/bench/all src/verify/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/dom/VDSProject_22Group4/cmake-build-debug/src/bench
+
+build src/bench/all: phony src/bench/libBenchmark.a src/bench/VDSProject_bench
 
 # =============================================================================
 
@@ -752,6 +999,13 @@ build src/all: phony src/libManager.a src/test/all
 # Folder: /home/dom/VDSProject_22Group4/cmake-build-debug/src/test
 
 build src/test/all: phony src/test/VDSProject_test
+
+# =============================================================================
+
+#############################################
+# Folder: /home/dom/VDSProject_22Group4/cmake-build-debug/src/verify
+
+build src/verify/all: phony src/verify/VDSProject_verify
 
 # =============================================================================
 
@@ -781,14 +1035,14 @@ build /home/dom/VDSProject_22Group4/gtest/googletest-build/googletest/all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/dom/VDSProject_22Group4/CMakeLists.txt /home/dom/VDSProject_22Group4/CMakeLists.txt.in /home/dom/VDSProject_22Group4/gtest/googletest-src/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/Config.cmake.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/internal_utils.cmake /home/dom/VDSProject_22Group4/src/CMakeLists.txt /home/dom/VDSProject_22Group4/src/test/CMakeLists.txt /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCCompiler.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCCompilerABI.c /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXCompiler.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXCompilerABI.cpp /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCompilerIdDetection.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDependentOption.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCXXCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompileFeatures.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompilerABI.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompilerId.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeFindBinUtils.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseImplicitIncludeInfo.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseImplicitLinkInfo.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseLibraryArchitecture.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystem.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCXXCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCompilerCommon.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckIncludeFile.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckLibraryExists.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ADSP-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ARMCC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ARMClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/AppleClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Borland-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Cray-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GHS-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-FindBinUtils.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/HP-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IAR-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Intel-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/LCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/MSVC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/NVHPC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/PGI-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/PathScale-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SCO-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/TI-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Watcom-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XL-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/zOS-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageMessage.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython/Support.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindThreads.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/GNUInstallDirs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/FeatureTesting.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-Determine-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/dom/VDSProject_22Group4/CMakeLists.txt /home/dom/VDSProject_22Group4/CMakeLists.txt.in /home/dom/VDSProject_22Group4/gtest/googletest-src/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/Config.cmake.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/internal_utils.cmake /home/dom/VDSProject_22Group4/src/CMakeLists.txt /home/dom/VDSProject_22Group4/src/bench/CMakeLists.txt /home/dom/VDSProject_22Group4/src/test/CMakeLists.txt /home/dom/VDSProject_22Group4/src/verify/CMakeLists.txt /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDependentOption.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckIncludeFile.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckLibraryExists.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageMessage.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython/Support.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindThreads.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/GNUInstallDirs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/dom/VDSProject_22Group4/CMakeLists.txt /home/dom/VDSProject_22Group4/CMakeLists.txt.in /home/dom/VDSProject_22Group4/gtest/googletest-src/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/Config.cmake.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/internal_utils.cmake /home/dom/VDSProject_22Group4/src/CMakeLists.txt /home/dom/VDSProject_22Group4/src/test/CMakeLists.txt /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCCompiler.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCCompilerABI.c /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXCompiler.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXCompilerABI.cpp /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCompilerIdDetection.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDependentOption.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCXXCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompileFeatures.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompilerABI.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineCompilerId.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDetermineSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeFindBinUtils.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseImplicitIncludeInfo.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseImplicitLinkInfo.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeParseLibraryArchitecture.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystem.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCXXCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeTestCompilerCommon.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckIncludeFile.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckLibraryExists.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ADSP-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ARMCC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/ARMClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/AppleClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Borland-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Cray-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GHS-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-FindBinUtils.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/HP-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IAR-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Intel-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/LCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/MSVC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/NVHPC-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/PGI-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/PathScale-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SCO-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/TI-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/Watcom-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XL-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/zOS-C-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageMessage.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython/Support.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindThreads.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/GNUInstallDirs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/FeatureTesting.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-Determine-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+build /home/dom/VDSProject_22Group4/CMakeLists.txt /home/dom/VDSProject_22Group4/CMakeLists.txt.in /home/dom/VDSProject_22Group4/gtest/googletest-src/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googlemock/cmake/gmock_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/CMakeLists.txt /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/Config.cmake.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/gtest_main.pc.in /home/dom/VDSProject_22Group4/gtest/googletest-src/googletest/cmake/internal_utils.cmake /home/dom/VDSProject_22Group4/src/CMakeLists.txt /home/dom/VDSProject_22Group4/src/bench/CMakeLists.txt /home/dom/VDSProject_22Group4/src/test/CMakeLists.txt /home/dom/VDSProject_22Group4/src/verify/CMakeLists.txt /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeDependentOption.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckIncludeFile.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/CheckLibraryExists.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Compiler/GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPackageMessage.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindPython/Support.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/FindThreads.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/GNUInstallDirs.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-C.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU-CXX.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux-GNU.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/Linux.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /home/dom/clion-2022.3/bin/cmake/linux/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
 
 
 #############################################

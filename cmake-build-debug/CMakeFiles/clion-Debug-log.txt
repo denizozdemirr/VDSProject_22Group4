@@ -1,35 +1,14 @@
 /home/dom/clion-2022.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/dom/clion-2022.3/bin/ninja/linux/ninja -G Ninja -S /home/dom/VDSProject_22Group4 -B /home/dom/VDSProject_22Group4/cmake-build-debug
--- The CXX compiler identification is GNU 11.3.0
--- The C compiler identification is GNU 11.3.0
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/dom/VDSProject_22Group4/gtest/googletest-download
-[1/9] Creating directories for 'googletest'
-[2/9] Performing download step (git clone) for 'googletest'
-Cloning into 'googletest-src'...
-Already on 'main'
-Your branch is up to date with 'origin/main'.
-[3/9] Performing update step for 'googletest'
-[4/9] No patch step for 'googletest'
-[5/9] No configure step for 'googletest'
-[6/9] No build step for 'googletest'
-[7/9] No install step for 'googletest'
-[8/9] No test step for 'googletest'
-[9/9] Completed 'googletest'
--- Found Python: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter 
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
--- Found Threads: TRUE  
+[1/7] Performing update step for 'googletest'
+[2/7] No patch step for 'googletest'
+[3/7] No configure step for 'googletest'
+[4/7] No build step for 'googletest'
+[5/7] No install step for 'googletest'
+[6/7] No test step for 'googletest'
+[7/7] Completed 'googletest'
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/dom/VDSProject_22Group4/cmake-build-debug

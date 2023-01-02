@@ -1,0 +1,36 @@
+Variable Node: 1020 Top Var Id: 2 Top Var Name: 41 Low: 1019 High: 1005
+Variable Node: 1019 Top Var Id: 4 Top Var Name: 13 Low: 1018 High: 1017
+Variable Node: 1018 Top Var Id: 6 Top Var Name: 20 Low: 1015 High: 0
+Variable Node: 1017 Top Var Id: 6 Top Var Name: 20 Low: 1016 High: 0
+Variable Node: 1016 Top Var Id: 7 Top Var Name: 1 Low: 1015 High: 1012
+Variable Node: 1015 Top Var Id: 16 Top Var Name: 45 Low: 1001 High: 1014
+Variable Node: 1014 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 1013
+Variable Node: 1013 Top Var Id: 71 Top Var Name: 274 Low: 1000 High: 1
+Variable Node: 1012 Top Var Id: 16 Top Var Name: 45 Low: 999 High: 1011
+Variable Node: 1011 Top Var Id: 24 Top Var Name: 33 Low: 1010 High: 1007
+Variable Node: 1010 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 1009
+Variable Node: 1009 Top Var Id: 46 Top Var Name: 349 Low: 1008 High: 1006
+Variable Node: 1008 Top Var Id: 71 Top Var Name: 274 Low: 996 High: 1
+Variable Node: 1007 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 1006
+Variable Node: 1006 Top Var Id: 71 Top Var Name: 274 Low: 994 High: 1
+Variable Node: 1005 Top Var Id: 4 Top Var Name: 13 Low: 1004 High: 1003
+Variable Node: 1004 Top Var Id: 6 Top Var Name: 20 Low: 1001 High: 0
+Variable Node: 1003 Top Var Id: 6 Top Var Name: 20 Low: 1002 High: 0
+Variable Node: 1002 Top Var Id: 7 Top Var Name: 1 Low: 1001 High: 999
+Variable Node: 1001 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 1000
+Variable Node: 1000 Top Var Id: 151 Top Var Name: 179 Low: 570 High: 1
+Variable Node: 999 Top Var Id: 24 Top Var Name: 33 Low: 998 High: 995
+Variable Node: 998 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 997
+Variable Node: 997 Top Var Id: 46 Top Var Name: 349 Low: 996 High: 994
+Variable Node: 996 Top Var Id: 151 Top Var Name: 179 Low: 700 High: 1
+Variable Node: 995 Top Var Id: 25 Top Var Name: 169 Low: 151 High: 994
+Variable Node: 994 Top Var Id: 151 Top Var Name: 179 Low: 699 High: 1
+Variable Node: 700 Top Var Id: 570 Top Var Name: 264 Low: 685 High: 1
+Variable Node: 699 Top Var Id: 570 Top Var Name: 264 Low: 687 High: 1
+Variable Node: 687 Top Var Id: 574 Top Var Name: 257 Low: 685 High: 1
+Variable Node: 685 Top Var Id: 681 Top Var Name: 250 Low: 683 High: 1
+Variable Node: 683 Top Var Id: 683 Top Var Name: 294 Low: 0 High: 1
+Variable Node: 570 Top Var Id: 570 Top Var Name: 264 Low: 0 High: 1
+Variable Node: 151 Top Var Id: 151 Top Var Name: 179 Low: 0 High: 1
+Terminal Node: 1
+Terminal Node: 0
