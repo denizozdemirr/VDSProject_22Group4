@@ -1,7 +1,8 @@
 gtest/
-/build/
+build/
 /benchmarks
 /results_c432
 /results_c3540
-/cmake-build-release
-/cmake-build-debug
+cmake-build-release/
+results_*
+cmake-build-debug/
