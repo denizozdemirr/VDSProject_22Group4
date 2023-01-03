@@ -13,16 +13,7 @@ class ManagerTests : public ::testing::Test{
     public:
         ClassProject::Manager manager;
 };
-/*
-TEST_F(ManagerTests,CHECKcreateVarSize)
-{
-    EXPECT_EQ(manager.createVar("a"),2);
-    EXPECT_EQ(manager.createVar("b"),3);
-    EXPECT_EQ(manager.createVar("c"),4);
-    EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
-}
-*/
+//Create variables and check if their set LowSuccesor, HighSuccesor and TopVariable is correct.
 TEST_F(ManagerTests,CHECKcreateVarSetValues)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -46,19 +37,19 @@ TEST_F(ManagerTests,CHECKcreateVarSetValues)
     EXPECT_EQ(manager.GetLow(5),0);
 }
 
-//Check function True
+//Check if function true returns id 1
 TEST_F(ManagerTests,CHECKTrue)
 {
     EXPECT_EQ(manager.True(),1);
 }
 
-//Check function False
+//Check function False returns id 0
 TEST_F(ManagerTests,CHECKFalse)
 {
     EXPECT_EQ(manager.False(),0);
 }
 
-//Check function isConstant
+//Check function isConstant, we check if created variables are detected as non constant.
 TEST_F(ManagerTests,CHECKisConstant)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -84,32 +75,10 @@ TEST_F(ManagerTests,CHECKfindoradduniquetable)
     EXPECT_EQ(manager.BDDTableSize(),6);
     EXPECT_EQ(manager.find_or_add_unique_table(6,0,1),6);
 }
-/*
-// We need to understand coFactor to test it.
-TEST_F(ManagerTests,CHECKcoFactorTrue2In)
-{
-
-}
-
-TEST_F(ManagerTests,CHECKcoFactorTrue1In)
-{
-
-}
-
-TEST_F(ManagerTests,CHECKcoFactorFalse2In)
-{
-
-}
-
-TEST_F(ManagerTests,CHECKcoFactorFalse1In)
-{
-
-}
-
-*/
 
 //checking Function topVar is done within checking the creation of Variables. If Something fails there, we can check furthermore.
-//Check function ite
+//Check function ite terminal cases.
+
 TEST_F(ManagerTests,CHECKite)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -122,18 +91,8 @@ TEST_F(ManagerTests,CHECKite)
     EXPECT_EQ(manager.ite(5,2,2),2);
     EXPECT_EQ(manager.ite(0,3,5),5);
     EXPECT_EQ(manager.ite(1,3,5),3);
-
-    //Check General Cases of ite
-
-    //
-    //EXPECT_EQ(manager.ite(4,3,5),8);
-    //EXPECT_EQ(manager.BDDTableSize(),8);
-    //EXPECT_EQ(manager.ite(2,3,4),11);
-    //EXPECT_EQ(manager.BDDTableSize(),11);
-    //EXPECT_EQ(manager.ite(6,4,3),14);
-    //EXPECT_EQ(manager.BDDTableSize(),14);
-    //test
 }
+
 //Check neg function
 TEST_F(ManagerTests,CHECKneg)
 {
@@ -148,7 +107,7 @@ TEST_F(ManagerTests,CHECKneg)
 
 }
 
-//Check and2 function
+//Check and2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKand2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -165,7 +124,7 @@ TEST_F(ManagerTests,CHECKand2)
     //EXPECT_EQ(manager.and2(4,5),8);
 }
 
-//Check or2 function
+//Check or2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKor2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -181,7 +140,7 @@ TEST_F(ManagerTests,CHECKor2)
     EXPECT_EQ(manager.GetHigh(BorD),1);
 }
 
-//Check xor2 function
+//Check xor2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKxor2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -199,7 +158,7 @@ TEST_F(ManagerTests,CHECKxor2)
     EXPECT_EQ(manager.GetHigh(BxorC),manager.neg(4));
 }
 
-//Check nand2 function
+//Check nand2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKnand2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -215,7 +174,7 @@ TEST_F(ManagerTests,CHECKnand2)
     EXPECT_EQ(manager.GetHigh(CnandD),manager.neg(5));
 }
 
-//Check nor2 function
+//Check nor2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKnor2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
@@ -231,7 +190,7 @@ TEST_F(ManagerTests,CHECKnor2)
     EXPECT_EQ(manager.GetHigh(BnorD),0);// if b=1->0
 }
 
-//Check xnor2 function
+//Check xnor2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values
 TEST_F(ManagerTests,CHECKxnor2)
 {
     EXPECT_EQ(manager.createVar("a"),2);
