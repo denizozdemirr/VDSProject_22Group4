@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     BDD_ID c=m.createVar("c");
     BDD_ID d=m.createVar("d");
     //implementation of f. f=and2(and2(c,d),or2(a,b))=and2(or2(a,b),and2(c,d))
-    BDD_ID f=m.and2(m.or2(a,b),m.and2(c,d));
+    BDD_ID f=m.and2(m.and2(c,d),m.or2(a,b));
 
     //output of unique table to check if table equals to the given one in the example
     //first get the size of the unique_table to know how many rows we need to output
@@ -46,6 +46,6 @@ int main(int argc, char* argv[])
         std::cout << m.topVar(BDD_ID (row));
         std::cout << "  "<< std::endl;
     }
-    std::cout << "Nothing implemented, yet" << std::endl;
+    std::cout << "Implementation done" << std::endl;
 }
 

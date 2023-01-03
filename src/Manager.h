@@ -55,7 +55,7 @@ namespace ClassProject {
         std::vector<ComputedEntry> COMPTable;
 
         Manager();
-        //virtual ~Manager();
+        ~Manager();
 
         BDD_ID createVar(const std::string &label) override;
 
@@ -106,7 +106,6 @@ namespace ClassProject {
         BDD_ID GetLow(BDD_ID ID);
         BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
         void update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h,BDD_ID r);
-        BDD_ID GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z);
 
 
     };

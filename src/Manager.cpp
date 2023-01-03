@@ -8,15 +8,17 @@ using namespace ClassProject;
 
 //Done at first call of Manager .
 Manager::Manager(void)
-    {
+{
     BDD_ID trash;
+    BDDTable.clear();
+    COMPTable.clear();
     trash=createNode("FALSE",0,0,0,0);
     trash=createNode( "TRUE",1,1,1,1);
 }
 
-//Manager::~Manager(){}
+Manager::~Manager(){}
 
-//Creates
+//Creates Variable by calling the createNode function and returns the ID, which is returned by createNode iteself.
 BDD_ID Manager::createVar(const std::string &label)
 {
     //to create a variable we need to create an node. Thats why we return createNode;
@@ -24,16 +26,19 @@ BDD_ID Manager::createVar(const std::string &label)
     return createNode(label,BDDTableSize(),False(),True(),BDDTableSize());
 }
 
+//Return ID of True Node
 const BDD_ID &Manager::True()
 {
     return TrueID;
 }
 
+//Return ID of False Node
 const BDD_ID &Manager::False()
 {
     return FalseID;
 }
 
+//Return 1 if ID f represents false or true note. Else return 0.
 bool Manager::isConstant(BDD_ID f)
 {
     if (f==False() || f==True())
@@ -43,11 +48,13 @@ bool Manager::isConstant(BDD_ID f)
     return False();
 }
 
+//x is an variable if it's not false or true node and the top variable equals the id, returns 1 if x is an variable, 0 else.
 bool Manager::isVariable(BDD_ID x)
 {
     return x!=False() && x!=True() && topVar(x)==x;
 }
 
+//returns the topVar of ID f
 BDD_ID Manager::topVar(BDD_ID f)
 {
     return BDDTable[f].TopVar_Entry;
@@ -73,13 +80,10 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         return i;}
     else if (t==e){
         return e;}
-    //not sure about the last terminal case, so far we have an neg, so I pretty sure this case is not needed
-    /*
-    else if (t==False() && e=True()){
-        return ;}
-    */
-    //we use the function Compare to computed BDD to check if the computed table has entry with the same IDs.
-    //computed table has entry i, t or e
+    //check if computed table has entry i, t or e
+    //we just check for the exact same pattern so far.
+    //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
+    //but represented by the same boolean function
     for (int i = 0; i < COMPTable.size(); i++)
     {
         if (COMPTable[i].f == i && COMPTable[i].g == t && COMPTable[i].h == e)
@@ -113,17 +117,24 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID t_co_false= coFactorFalse(t,ID_of_TopVar_temp);
     BDD_ID e_co_false= coFactorFalse(e,ID_of_TopVar_temp);
 
-
+    //the results of the prevision calculations is used to recursively (call the same function with itself)
+    //call the ite-function.
     BDD_ID rHigh = ite(i_co_true,t_co_true,e_co_true);
     BDD_ID rLow = ite(i_co_false,t_co_false,e_co_false);
 
+    //if rHigh and rLow equal, the ID representing them is returned.
     if (rHigh==rLow)
     {
         BDD_ID rReturn =rHigh;
         return rHigh;//return rHigh;
     }
+    //Else we call the function find_or_add_unique_table, which checks the unique table for
+    //Entry with TopVar for i,t,e , rLow (LowSuccesor) and rHigh (HighSuccesor).
+    //If the unique table has entry, we return the id of entry, else we create a new entry,
+    //and return the id of the new entry.
     BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
 
+    //we update the computed table with the i,t,e pattern, to safe that we already computed it.
     update_computed_table(i, t, e,r);
 
     return r;
@@ -142,6 +153,7 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
     }
     else
     {
+        //Implementation of the given Pseudocode.
         BDD_ID T = coFactorTrue(GetHigh(f),x);
         BDD_ID F = coFactorTrue(GetLow(f),x);
         return ite(topVar(f),T,F);
@@ -160,12 +172,15 @@ BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
     }
     else
     {
+        //Implementation of the given Pseudocode.
         BDD_ID T = coFactorFalse(GetHigh(f),x);
         BDD_ID F = coFactorFalse(GetLow(f),x);
         return ite(topVar(f),T,F);
     }
 }
 //The following 2 functions describe behaviour if x isn't described.
+//basically if just call the function coFactorTrue/False with one parameter, we call the function
+// with two parameter and set the second one to the top Variable of the first paramter.
 BDD_ID Manager::coFactorTrue(BDD_ID f)
 {
     return coFactorTrue(f, topVar(f));
@@ -207,17 +222,20 @@ BDD_ID Manager::nor2(BDD_ID a, BDD_ID b)
 {
     return ite(neg(a),neg(b),False());
 }
-//same logic again...
+//same logic again. f nor g =ite(f,g,neg(g))
+//if neg(f) is true , output g, else output neg(g)
 BDD_ID Manager::xnor2(BDD_ID a, BDD_ID b)
 {
     return ite(a,b,neg(b));
 }
 
+//Outputs every ID of TopVar that is reachable by Node with ID root
 std::string Manager::getTopVarName(const BDD_ID &root)
 {
     return BDDTable[root].Varname_Entry;
 }
 
+//search for nodes that are connected to root.
 void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 {
     //root itself is always reachable
@@ -242,11 +260,14 @@ void Manager::findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root)
     }
 }
 
+//returns the size of the BDDTable.
 size_t Manager::BDDTableSize()
 {
     return BDDTable.size();
 }
 
+//add an entry to the BDDTable (unique table), which is a std::vector. The .push_back adds object of class BDDEntry
+//to the vector. there the described the constructor within Manager.h
 BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
@@ -255,38 +276,20 @@ BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, 
     return BDDTableSize() -1;
 }
 
-// Computed Table has Entry for (f,g,h)
-/*bool Manager::CompareToComputedBDD(BDD_ID f, BDD_ID g, BDD_ID h)
-{
-    for (int i = 0; i < COMPTable.size(); i++)
-    {
-        if (COMPTable[i].f == f && COMPTable[i].g == g && COMPTable[i].h == h)
-        {
-            return COMPTable[i].r;
-        }
-
-    }
-    return 2;
-    /*
-    for (auto item : COMPTable)
-        if (item.f==f && item.g ==g && item.h ==h)
-        {
-            return item.r;
-        }
-        return -1;
-
-}
-*/
+//returns the HighSuccesors of Entry with ID ID
 BDD_ID Manager::GetHigh(BDD_ID ID)
 {
     return BDDTable[ID].High_Entry;
 }
 
+//returns the LowSuccesors of Entry with ID ID
 BDD_ID Manager::GetLow(BDD_ID ID)
 {
     return BDDTable[ID].Low_Entry;
 }
 
+//Check if the unique table has Entry with ID x and LowSuccesor rLow and HighSuccesor rHigh.
+//if true, return the ID of the Entry, else call createNode and return the ID of the new Node.
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
@@ -303,37 +306,9 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
         }
     }
 }
+
+//Add Entry to Computed Table with the ID f,g,h and r.
 void Manager::update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h, BDD_ID r)
 {
     COMPTable.push_back(ComputedEntry(f,g,h,r));
 }
-/*
-BDD_ID Manager::GetMinTop(BDD_ID x, BDD_ID y, BDD_ID z)
-{
-    BDD_ID TopVar1 = topVar(x);
-    BDD_ID TopVar2 = topVar(y);
-    BDD_ID TopVar3 = topVar(z);
-    if (TopVar1<=TopVar2)
-    {
-        if (TopVar1<=TopVar3)
-        {
-           return TopVar1;
-        }
-        else
-        {
-            return TopVar3;
-        }
-    }
-    else
-    {
-        if (TopVar2<=TopVar3)
-        {
-            return TopVar2;
-        }
-        else
-        {
-            return TopVar3;
-        }
-    }
-}
-*/
