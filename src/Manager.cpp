@@ -84,11 +84,11 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
-    for (int i = 0; i < COMPTable.size(); i++)
+    for (int loop_counter = 0; loop_counter < COMPTable.size(); loop_counter++)
     {
-        if (COMPTable[i].f == i && COMPTable[i].g == t && COMPTable[i].h == e)
+        if (COMPTable[loop_counter].f == i && COMPTable[loop_counter].g == t && COMPTable[loop_counter].h == e)
         {
-            return COMPTable[i].r;
+            return COMPTable[loop_counter].r;
         }
 
     }
@@ -232,7 +232,8 @@ BDD_ID Manager::xnor2(BDD_ID a, BDD_ID b)
 //Outputs every ID of TopVar that is reachable by Node with ID root
 std::string Manager::getTopVarName(const BDD_ID &root)
 {
-    return BDDTable[root].Varname_Entry;
+    BDD_ID top_temp = BDDTable[root].TopVar_Entry;
+    return BDDTable[top_temp].Varname_Entry;
 }
 
 //search for nodes that are connected to root.
@@ -293,7 +294,7 @@ BDD_ID Manager::GetLow(BDD_ID ID)
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
-    for (BDD_ID count=0; count<=BDDTableSize(); count++)
+    for (BDD_ID count=0; count<BDDTableSize(); count++)
     {
         if (BDDTable[count].TopVar_Entry==x && BDDTable[count].Low_Entry==rLow && BDDTable[count].High_Entry==rHigh)
         {
