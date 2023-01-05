@@ -99,7 +99,7 @@ namespace ClassProject {
 
         void findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root) override;
 
-        size_t BDDTableSize() override;
+        size_t uniqueTableSize() override;
 
         BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
         BDD_ID GetHigh(BDD_ID ID);

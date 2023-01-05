@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 
     //output of unique table to check if table equals to the given one in the example
     //first get the size of the unique_table to know how many rows we need to output
-    int size_unique_table=int(m.BDDTableSize());
+    int size_unique_table=int(m.uniqueTableSize());
     //take care. the first row is always 0 NOT! 1
     for(int row=0;row<size_unique_table;row++)
     {

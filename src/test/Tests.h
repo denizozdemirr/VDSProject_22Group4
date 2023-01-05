@@ -20,7 +20,7 @@ TEST_F(ManagerTests,CHECKcreateVarSetValues)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     EXPECT_EQ(manager.topVar(2),2);
     EXPECT_EQ(manager.topVar(3),3);
     EXPECT_EQ(manager.topVar(4),4);
@@ -56,7 +56,7 @@ TEST_F(ManagerTests,CHECKisConstant)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     EXPECT_EQ(manager.isConstant(0),1);
     EXPECT_EQ(manager.isConstant(1),1);
     EXPECT_EQ(manager.isConstant(2),0);
@@ -72,7 +72,7 @@ TEST_F(ManagerTests,CHECKfindoradduniquetable)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     EXPECT_EQ(manager.find_or_add_unique_table(6,0,1),6);
 }
 
@@ -85,7 +85,7 @@ TEST_F(ManagerTests,CHECKite)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     //Check for terminal cases
     EXPECT_EQ(manager.ite(4,1,0),4);
     EXPECT_EQ(manager.ite(5,2,2),2);
@@ -100,7 +100,7 @@ TEST_F(ManagerTests,CHECKneg)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     ClassProject::BDD_ID Aneg = manager.neg(2);
     EXPECT_EQ(manager.GetLow(Aneg),1);
     EXPECT_EQ(manager.GetHigh(Aneg),0);
@@ -114,7 +114,7 @@ TEST_F(ManagerTests,CHECKand2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     ClassProject::BDD_ID AandB = manager.and2(2,3);
     EXPECT_EQ(manager.GetLow(AandB),0);
     EXPECT_EQ(manager.GetHigh(AandB),3);
@@ -131,7 +131,7 @@ TEST_F(ManagerTests,CHECKor2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     ClassProject::BDD_ID AorC = manager.or2(2,4);
     EXPECT_EQ(manager.GetLow(AorC),4);
     EXPECT_EQ(manager.GetHigh(AorC),1);
@@ -147,7 +147,7 @@ TEST_F(ManagerTests,CHECKxor2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     // ( a AND NOT(d)) OR (NOT(a) AND d)
     ClassProject::BDD_ID AxorD = manager.xor2(2,5);
     EXPECT_EQ(manager.GetLow(AxorD),5);
@@ -165,7 +165,7 @@ TEST_F(ManagerTests,CHECKnand2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     ClassProject::BDD_ID AnandB = manager.nand2(2,3);
     EXPECT_EQ(manager.GetLow(AnandB),1);
     EXPECT_EQ(manager.GetHigh(AnandB),manager.neg(3));
@@ -181,7 +181,7 @@ TEST_F(ManagerTests,CHECKnor2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     ClassProject::BDD_ID AnorC = manager.nor2(2,4);
     EXPECT_EQ(manager.GetLow(AnorC),manager.neg(4));//->if a=0->NOT(c)
     EXPECT_EQ(manager.GetHigh(AnorC),0);//->if a=1->0
@@ -197,7 +197,7 @@ TEST_F(ManagerTests,CHECKxnor2)
     EXPECT_EQ(manager.createVar("b"),3);
     EXPECT_EQ(manager.createVar("c"),4);
     EXPECT_EQ(manager.createVar("d"),5);
-    EXPECT_EQ(manager.BDDTableSize(),6);
+    EXPECT_EQ(manager.uniqueTableSize(),6);
     // ( a AND d) OR (NOT(a) AND NOT(d))
     ClassProject::BDD_ID AxnorD = manager.xnor2(2,5);
     EXPECT_EQ(manager.GetLow(AxnorD),manager.neg(5));
