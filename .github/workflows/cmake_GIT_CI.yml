@@ -1,11 +1,9 @@
 name: ROBBD Implementation test
-
 on: 
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
 env:
   BUILD_TYPE: Release
 
@@ -18,18 +16,26 @@ jobs:
     
     - name: CMake Directories
       run: mkdir build && cd build && cmake ../
+      
       #run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}#
-
+     #creation of build directory
     - name: Build
       run: cd build && make
+      
      #run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+    #installing of GTEST
     - name: Install GTest
       run: sudo apt-get install libgtest-dev
-     
+    - name: Navigate to GTest Directory
+      run: cd /usr/src/gtest
     - name: CMake GTest
-      run: sudo cmake /usr/src/gtest/CMakeLIsts.txt
+      run: sudo cmake CMakeLIsts.txt
     - name: Make GTest
       run: sudo make
+    
+    #creating the VDSProject_test executeable
+    - name: build exec
+      run: cd /usr/build && cmake --build . --config $BUILD_TYPE --target VDSProject_test
     - name: Run Test
       run: ./build/src/test/VDSProject_test
     
