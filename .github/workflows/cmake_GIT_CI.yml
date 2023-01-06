@@ -31,7 +31,7 @@ jobs:
     - name: Navigate to GTest Directory
       run: cd /usr/src/gtest
     - name: CMake GTest
-      run: sudo cmake CMakeLIsts.txt
+      run: sudo cmake CMakeLists.txt
     - name: Make GTest
       run: sudo make
     
@@ -41,6 +41,9 @@ jobs:
     - name: build exec
       #run: cmake --build . --config $BUILD_TYPE --target VDSProject_test
       run: ctest -C $BUILD_TYPE
+    - name: Nav Test Dir
+      run: cd /src/test
+    - name: Run cmake
+      run: sudo cmake CMakeLists
     - name: Run Test
-      run: ./build/src/test/VDSProject_test
-    
+      run: VDSProject_test
