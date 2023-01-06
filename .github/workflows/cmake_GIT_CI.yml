@@ -32,12 +32,6 @@ jobs:
     run: sudo make
    - name: Run Test
       run: ./build/src/test/VDSProject_test
-   
-    
- - name: Run Test
-    working-directory: ${{runner.workspace}}/build
-    shell: bash
-    run: ${{runner.workspace}}/build/src/test/VDSProject_test
     
     
     
