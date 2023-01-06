@@ -13,25 +13,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-   steps:
+    steps:
     - uses: actions/checkout@v3
     
     - name: CMake Directories
       run: mkdir build && cd build && cmake ../
       #run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}#
 
-   - name: Build
-     run: cd build && make
+    - name: Build
+      run: cd build && make
      #run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-   - name: Install GTest
-     run: sudo apt-get install libgtest-dev
+    - name: Install GTest
+      run: sudo apt-get install libgtest-dev
      
-  - name: CMake GTest
-     run: sudo cmake /usr/src/gtest/CMakeLIsts.txt
-  - name: Make GTest
-    run: sudo make
-   - name: Run Test
+    - name: CMake GTest
+      run: sudo cmake /usr/src/gtest/CMakeLIsts.txt
+    - name: Make GTest
+      run: sudo make
+    - name: Run Test
       run: ./build/src/test/VDSProject_test
-    
-    
     
