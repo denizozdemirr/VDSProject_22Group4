@@ -9,11 +9,10 @@ using namespace ClassProject;
 //Done at first call of Manager .
 Manager::Manager(void)
 {
-    BDD_ID trash;
     BDDTable.clear();
     COMPTable.clear();
-    trash=createNode("FALSE",0,0,0,0);
-    trash=createNode( "TRUE",1,1,1,1);
+    createNode("FALSE",0,0,0,0);
+    createNode( "TRUE",1,1,1,1);
 }
 
 Manager::~Manager(){}
@@ -41,11 +40,7 @@ const BDD_ID &Manager::False()
 //Return 1 if ID f represents false or true note. Else return 0.
 bool Manager::isConstant(BDD_ID f)
 {
-    if (f==False() || f==True())
-    {
-        return True();
-    }
-    return False();
+        return f==False() || f==True();
 }
 
 //x is an variable if it's not false or true node and the top variable equals the id, returns 1 if x is an variable, 0 else.
@@ -72,14 +67,22 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 {
     //Pseudocode see script 2-17
     //if terminal case
-    if (i==True()){
-        return t;}
-    else if (i==False()){
-        return e;}
-    else if (t==True() && e==False()){
-        return i;}
-    else if (t==e){
-        return e;}
+    if (i==True())
+    {
+        return t;
+    }
+    else if (i==False())
+    {
+        return e;
+    }
+    else if (t==True() && e==False())
+    {
+        return i;
+    }
+    else if (t==e)
+    {
+        return e;
+    }
     //check if computed table has entry i, t or e
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
@@ -195,7 +198,7 @@ BDD_ID Manager::neg(BDD_ID a)
 {
     return ite(a,False(),True());
 }
-//and given on slide 2-15 f and g = ite(f,g,0)
+//an4d given on slide 2-15 f and g = ite(f,g,0)
 BDD_ID Manager::and2(BDD_ID a, BDD_ID b)
 {
     return ite(a,b,False());
@@ -241,8 +244,12 @@ void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 {
     //root itself is always reachable
     nodes_of_root.insert(root);
-    if (isConstant(root)){return;}
-    else {
+    if (isConstant(root))
+    {
+        return;
+    }
+    else
+    {
         //We call findNodes again with high and low of variable, we use them as new root.
         findNodes(BDDTable[root].High_Entry, nodes_of_root);
         findNodes(BDDTable[root].Low_Entry, nodes_of_root);
@@ -251,8 +258,12 @@ void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 
 void Manager::findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root)
 {
-    if (isConstant(root)){return;}
-    else {
+    if (isConstant(root))
+    {
+        return;
+    }
+    else
+    {
         //if root is no leaf node insert the TopVar of root as first vars of root.
         vars_of_root.insert(BDDTable[root].TopVar_Entry);
         //We call findVars again with high and low of variable, we use them as new root.
