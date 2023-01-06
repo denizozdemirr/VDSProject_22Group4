@@ -22,6 +22,8 @@ jobs:
     
       #run: cd build && make
       
+    - name: Install Boost
+      run: sudo apt-get install libboost-all-dev
      #run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
     #installing of GTEST
     - name: Install GTest
