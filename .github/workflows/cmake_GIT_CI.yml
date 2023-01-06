@@ -37,7 +37,7 @@ jobs:
     
     #creating the VDSProject_test executeable
     - name: navigate to build
-      run: cd /usr/build 
+      run: cd /home/runner/work/VDSProject_22Group4/VDSProject_22Group4/build 
     - name: build exec
       run: cmake --build . --config $BUILD_TYPE --target VDSProject_test
     - name: Run Test
