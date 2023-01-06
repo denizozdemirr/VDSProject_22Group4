@@ -23,7 +23,7 @@ BDD_ID Manager::createVar(const std::string &label)
 {
     //to create a variable we need to create an node. Thats why we return createNode;
     //we need to define createNode
-    return createNode(label,BDDTableSize(),False(),True(),BDDTableSize());
+    return createNode(label,uniqueTableSize(),False(),True(),uniqueTableSize());
 }
 
 //Return ID of True Node
@@ -35,7 +35,7 @@ const BDD_ID &Manager::True()
 //Return ID of False Node
 const BDD_ID &Manager::False()
 {
-    return FalseID;
+       return FalseID;
 }
 
 //Return 1 if ID f represents false or true note. Else return 0.
@@ -84,11 +84,11 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
-    for (int loop_counter = 0; loop_counter < COMPTable.size(); loop_counter++)
+    for (auto & loop_object : COMPTable)
     {
-        if (COMPTable[loop_counter].f == i && COMPTable[loop_counter].g == t && COMPTable[loop_counter].h == e)
+        if (loop_object.f == i && loop_object.g == t && loop_object.h == e)
         {
-            return COMPTable[loop_counter].r;
+            return loop_object.r;
         }
 
     }
@@ -262,7 +262,7 @@ void Manager::findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root)
 }
 
 //returns the size of the BDDTable.
-size_t Manager::BDDTableSize()
+size_t Manager::uniqueTableSize()
 {
     return BDDTable.size();
 }
@@ -274,7 +274,7 @@ BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, 
     // add element to the end of BDDTable, we use class constructor for that
     BDDTable.push_back(BDDEntry(NodeName, NodeID, NoteHigh, NoteLow, NoteTop));
     //ID is always position -1
-    return BDDTableSize() -1;
+    return uniqueTableSize() -1;
 }
 
 //returns the HighSuccesors of Entry with ID ID
@@ -294,18 +294,14 @@ BDD_ID Manager::GetLow(BDD_ID ID)
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
-    for (BDD_ID count=0; count<BDDTableSize(); count++)
+    for (auto & loop_object : BDDTable)
     {
-        if (BDDTable[count].TopVar_Entry==x && BDDTable[count].Low_Entry==rLow && BDDTable[count].High_Entry==rHigh)
+        if (loop_object.TopVar_Entry==x && loop_object.Low_Entry==rLow && loop_object.High_Entry==rHigh)
         {
-            return count;
-        }
-        else if(count == BDDTableSize())
-        {
-
-            return createNode("",count,rLow,rHigh,x);
+            return loop_object.BDD_ID_Entry;
         }
     }
+    return createNode("",uniqueTableSize(),rLow,rHigh,x);
 }
 
 //Add Entry to Computed Table with the ID f,g,h and r.
