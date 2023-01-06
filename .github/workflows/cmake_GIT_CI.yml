@@ -21,7 +21,7 @@ jobs:
      #creation of build directory
     
       #run: cd build && make
-      
+      #Boost was required by BenchParser.cpp
     - name: Install Boost
       run: sudo apt-get install libboost-all-dev
      #run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
@@ -36,8 +36,10 @@ jobs:
       run: sudo make
     
     #creating the VDSProject_test executeable
+    - name: navigate to build
+      run: cd /usr/build 
     - name: build exec
-      run: cd /usr/build && cmake --build . --config $BUILD_TYPE --target VDSProject_test
+      run: cmake --build . --config $BUILD_TYPE --target VDSProject_test
     - name: Run Test
       run: ./build/src/test/VDSProject_test
     
