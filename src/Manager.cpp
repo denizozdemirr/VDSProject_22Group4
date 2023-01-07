@@ -283,7 +283,7 @@ size_t Manager::uniqueTableSize()
 BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
-    BDDTable.push_back(BDDEntry(NodeName, NodeID, NoteHigh, NoteLow, NoteTop));
+    BDDTable.push_back({NodeName, NodeID, NoteHigh, NoteLow, NoteTop});
     //ID is always position -1
     return uniqueTableSize() -1;
 }
@@ -318,5 +318,15 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 //Add Entry to Computed Table with the ID f,g,h and r.
 void Manager::update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h, BDD_ID r)
 {
-    COMPTable.push_back(ComputedEntry(f,g,h,r));
+    COMPTable.push_back({f,g,h,r});
 }
+//Hash Function for
+/*
+int HashGetCompKey(int F, int G, int H)
+{
+    //We run on 64 bit. in makes sense to use shift, because it's faster than mult
+    //23*23=460+69=529
+    //return F<<46+G<<23+H;
+    return F*529+G*23+H;
+}
+ */

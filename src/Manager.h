@@ -14,46 +14,28 @@ namespace ClassProject {
     //At the moment we assume a constant number of Variables, because we need to specify the size of the
     //class array somehow. We basically have 2 power number of vars that can represented in CNF abc... ~ab~c and so on
     //Additionally we always have entry True and False and function, that's why we add 3
-    class BDDEntry
+    struct BDDEntry
     {
-    public:
         std::string Varname_Entry;
         BDD_ID BDD_ID_Entry;
         BDD_ID High_Entry;
         BDD_ID Low_Entry;
         BDD_ID TopVar_Entry;
-
-        BDDEntry(std::string Label, BDD_ID ID, BDD_ID High, BDD_ID Low, BDD_ID Top)
-        {
-            Varname_Entry = Label;
-            BDD_ID_Entry = ID;
-            High_Entry = High;
-            Low_Entry = Low;
-            TopVar_Entry = Top;
-        }
     };
-    class ComputedEntry
+    struct ComputedEntry
     {
-    public:
         BDD_ID f;
         BDD_ID g;
         BDD_ID h;
         BDD_ID r;
-
-        ComputedEntry(BDD_ID F, BDD_ID G, BDD_ID H, BDD_ID R)
-        {
-            f = F;
-            g = G;
-            h = H;
-            r = R;
-        }
     };
     class Manager : public ManagerInterface
     {
-    public:
+    private:
         std::vector<BDDEntry> BDDTable;
         std::vector<ComputedEntry> COMPTable;
-
+        //std::unordered_map<int, ComputedEntry> COMPTable;
+    public:
         Manager();
         ~Manager();
 
@@ -100,12 +82,12 @@ namespace ClassProject {
         void findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root) override;
 
         size_t uniqueTableSize() override;
-
         BDD_ID createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop);
         BDD_ID GetHigh(BDD_ID ID);
         BDD_ID GetLow(BDD_ID ID);
         BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
         void update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h,BDD_ID r);
+        //int HashGetCompKey(int F, int G, int H);
 
 
     };
