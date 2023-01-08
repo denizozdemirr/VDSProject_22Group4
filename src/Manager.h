@@ -7,6 +7,7 @@
 
 #include "ManagerInterface.h"
 #include <vector>
+#include <unordered_map>
 namespace ClassProject {
 
     const BDD_ID TrueID=1;
@@ -22,19 +23,16 @@ namespace ClassProject {
         BDD_ID Low_Entry;
         BDD_ID TopVar_Entry;
     };
-    struct ComputedEntry
-    {
-        BDD_ID f;
-        BDD_ID g;
-        BDD_ID h;
-        BDD_ID r;
-    };
+
     class Manager : public ManagerInterface
     {
     private:
         std::vector<BDDEntry> BDDTable;
-        std::vector<ComputedEntry> COMPTable;
-        //std::unordered_map<int, ComputedEntry> COMPTable;
+        //std::vector<ComputedEntry> COMPTable;
+        std::unordered_map< size_t, BDD_ID> COMPTable;
+        //std::unordered_map< size_t, BDDEntry>BDDTable;
+        //std::unordered_map<int[3],int> COMPTable;
+
     public:
         Manager();
         ~Manager();
@@ -86,7 +84,8 @@ namespace ClassProject {
         BDD_ID GetHigh(BDD_ID ID);
         BDD_ID GetLow(BDD_ID ID);
         BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
-        void update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h,BDD_ID r);
+        void update_computed_table(size_t Key,BDD_ID r);
+        size_t CalcCompKey(BDD_ID f,BDD_ID g,BDD_ID h);
         //int HashGetCompKey(int F, int G, int H);
 
 

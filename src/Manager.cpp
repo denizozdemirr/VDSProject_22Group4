@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <Manager.h>
+#include <unordered_map>
 
 using namespace ClassProject;
 
@@ -87,6 +88,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
+    /*
     for (auto & loop_object : COMPTable)
     {
         if (loop_object.f == i && loop_object.g == t && loop_object.h == e)
@@ -95,6 +97,13 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         }
 
     }
+     */
+    size_t CompKey = CalcCompKey(i,t,e);
+    if(COMPTable.find(CompKey)!=COMPTable.end())
+    {
+        return COMPTable[CompKey];
+    }
+
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 
@@ -138,7 +147,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
 
     //we update the computed table with the i,t,e pattern, to safe that we already computed it.
-    update_computed_table(i, t, e,r);
+    update_computed_table(CompKey,r);
 
     return r;
 }
@@ -316,10 +325,18 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 }
 
 //Add Entry to Computed Table with the ID f,g,h and r.
-void Manager::update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h, BDD_ID r)
+void Manager::update_computed_table(size_t Key, BDD_ID r)
 {
-    COMPTable.push_back({f,g,h,r});
+    COMPTable[Key]=r;
 }
+
+size_t Manager::CalcCompKey(BDD_ID f, BDD_ID g, BDD_ID h)
+{
+    size_t key = (f<<42)+(g<<21)+h;
+    return key;
+}
+
+
 //Hash Function for
 /*
 int HashGetCompKey(int F, int G, int H)
