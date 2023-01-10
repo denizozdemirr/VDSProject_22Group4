@@ -221,7 +221,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 {
     //Check if f is a constant (true or false)
-    if (isConstant(f))
+    if (isConstant(f) || isConstant(x))
     {
         return f;
     }
@@ -230,8 +230,10 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
     {
         return GetHigh(f);
     }
-    else
+    if (topVar(f)>x)
     {
+        return f;
+    }
         //Implementation of the given Pseudocode.
         size_t key = CalcCoFactorKey(f,x);
         if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
@@ -243,18 +245,21 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
             return ID_ite;
         }
         return CoFactorTrue_hash[key];
-    }
 }
 //Pseudo-Code was given in the documentation
 BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
 {
-    if (isConstant(f))
+    if (isConstant(f) || isConstant(x))
     {
         return f;
     }
     if (topVar(f)==x)
     {
         return GetLow(f);
+    }
+    if (topVar(f)>x)
+    {
+        return f;
     }
     size_t key = CalcCoFactorKey(f,x);
     if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
