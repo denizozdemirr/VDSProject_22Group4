@@ -98,12 +98,74 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 
     }
      */
+
+    //Before we search for anything in Computed Table, we need to perform Standard Triples
+    if(!isConstant(i) && !isConstant(t) && !isConstant(e))
+    {
+        //ite(F,F,G)->ite(F,1,G)
+        if(i==t && i!=e)
+        {
+            t=True();
+        }
+        //ite(F,G,F)->ite(F,G,0)
+        if(i==e && i!=t)
+        {
+            e=False();
+        }
+        //ite(F,G,not(F))->ite(F,G,1)
+        if(i==e && i!=t)
+        {
+            e=True();
+        }
+        //ite(F,not(F),G)->ite(F,0,G)
+        if(i==e && i!=t)
+        {
+            t=False();
+        }
+    }
+
     size_t CompKey = CalcCompKey(i,t,e);
     if(COMPTable.find(CompKey)!=COMPTable.end())
     {
         return COMPTable[CompKey];
     }
-
+    //equivalent pairs:
+    if(!isConstant(i) && (!isConstant(t) || !isConstant(e)))
+    {
+        //ite(F,1,G)=(G,1,F)
+        if (t == True()) {
+            CompKey = CalcCompKey(e, t, i);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,0)=(G,F,0)
+        if (e == False()) {
+            CompKey = CalcCompKey(t, i, e);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,1)=ite(neg(G),neg(F),1)
+        if (e == True()) {
+            CompKey = CalcCompKey(neg(t), neg(i), e);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,0,G)=ite(neg(G),0,neg(f))
+        if (t == False()) {
+            CompKey = CalcCompKey(neg(e), t, neg(i));
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,not(G))=ite(G,F,not(F))
+        CompKey = CalcCompKey(t, i, neg(i));
+        if (COMPTable.find(CompKey) != COMPTable.end()) {
+            return COMPTable[CompKey];
+        }
+    }
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 

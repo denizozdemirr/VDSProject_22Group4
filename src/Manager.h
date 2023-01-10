@@ -28,10 +28,8 @@ namespace ClassProject {
     {
     private:
         std::vector<BDDEntry> BDDTable;
-        //std::vector<ComputedEntry> COMPTable;
         std::unordered_map< size_t, BDD_ID> COMPTable;
         //std::unordered_map< size_t, BDDEntry>BDDTable;
-        //std::unordered_map<int[3],int> COMPTable;
 
     public:
         Manager();
