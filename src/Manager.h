@@ -23,7 +23,6 @@ namespace ClassProject {
         BDD_ID Low_Entry;
         BDD_ID TopVar_Entry;
     };
-
     class Manager : public ManagerInterface
     {
     private:
@@ -31,7 +30,8 @@ namespace ClassProject {
         std::unordered_map< size_t, BDD_ID> COMPTable;
         //std::unordered_map< size_t, BDDEntry>BDDTable;
         std::unordered_map< size_t, BDD_ID> BDDTable_hash;
-
+        std::unordered_map< size_t, BDD_ID> CoFactorTrue_hash;
+        std::unordered_map< size_t, BDD_ID> CoFactorFalse_hash;
     public:
         Manager();
         ~Manager();
@@ -85,6 +85,8 @@ namespace ClassProject {
         BDD_ID find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh);
         void update_computed_table(size_t Key,BDD_ID r);
         size_t CalcCompKey(BDD_ID f,BDD_ID g,BDD_ID h);
+        size_t CalcCoFactorKey(BDD_ID f, BDD_ID x);
+
         //int HashGetCompKey(int F, int G, int H);
 
 

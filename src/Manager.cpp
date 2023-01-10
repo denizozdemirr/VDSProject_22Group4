@@ -225,6 +225,7 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
     {
         return f;
     }
+
     if (topVar(f)==x)
     {
         return GetHigh(f);
@@ -232,9 +233,16 @@ BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
     else
     {
         //Implementation of the given Pseudocode.
-        BDD_ID T = coFactorTrue(GetHigh(f),x);
-        BDD_ID F = coFactorTrue(GetLow(f),x);
-        return ite(topVar(f),T,F);
+        size_t key = CalcCoFactorKey(f,x);
+        if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
+        {
+            BDD_ID T = coFactorTrue(GetHigh(f), x);
+            BDD_ID F = coFactorTrue(GetLow(f), x);
+            BDD_ID ID_ite= ite(topVar(f),T, F);
+            CoFactorTrue_hash[key]=ID_ite;
+            return ID_ite;
+        }
+        return CoFactorTrue_hash[key];
     }
 }
 //Pseudo-Code was given in the documentation
@@ -248,13 +256,16 @@ BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
     {
         return GetLow(f);
     }
-    else
+    size_t key = CalcCoFactorKey(f,x);
+    if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
     {
-        //Implementation of the given Pseudocode.
-        BDD_ID T = coFactorFalse(GetHigh(f),x);
-        BDD_ID F = coFactorFalse(GetLow(f),x);
-        return ite(topVar(f),T,F);
+        BDD_ID T = coFactorFalse(GetHigh(f), x);
+        BDD_ID F = coFactorFalse(GetLow(f), x);
+        BDD_ID ID_ite= ite(topVar(f),T, F);
+        CoFactorTrue_hash[key]=ID_ite;
+        return ID_ite;
     }
+    return CoFactorTrue_hash[key];
 }
 //The following 2 functions describe behaviour if x isn't described.
 //basically if just call the function coFactorTrue/False with one parameter, we call the function
@@ -412,14 +423,10 @@ size_t Manager::CalcCompKey(BDD_ID f, BDD_ID g, BDD_ID h)
     return key;
 }
 
-
-//Hash Function for
-/*
-int HashGetCompKey(int F, int G, int H)
+//Computation of hash-key for unordered map of Cofactor is less computation intense as the CalcCompkey
+size_t Manager::CalcCoFactorKey(BDD_ID f, BDD_ID x)
 {
-    //We run on 64 bit. in makes sense to use shift, because it's faster than mult
-    //23*23=460+69=529
-    //return F<<46+G<<23+H;
-    return F*529+G*23+H;
+    size_t key = (f<<32)+x;
+    return key;
 }
- */
+
