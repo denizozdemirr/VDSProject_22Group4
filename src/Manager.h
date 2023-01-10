@@ -30,6 +30,7 @@ namespace ClassProject {
         std::vector<BDDEntry> BDDTable;
         std::unordered_map< size_t, BDD_ID> COMPTable;
         //std::unordered_map< size_t, BDDEntry>BDDTable;
+        std::unordered_map< size_t, BDD_ID> BDDTable_hash;
 
     public:
         Manager();

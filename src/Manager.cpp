@@ -99,6 +99,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     }
      */
 
+
     //Before we search for anything in Computed Table, we need to perform Standard Triples
     if(!isConstant(i) && !isConstant(t) && !isConstant(e))
     {
@@ -129,6 +130,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     {
         return COMPTable[CompKey];
     }
+    /*
     //equivalent pairs:
     if(!isConstant(i) && (!isConstant(t) || !isConstant(e)))
     {
@@ -166,6 +168,8 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
             return COMPTable[CompKey];
         }
     }
+     */
+
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 
@@ -351,10 +355,12 @@ size_t Manager::uniqueTableSize()
 
 //add an entry to the BDDTable (unique table), which is a std::vector. The .push_back adds object of class BDDEntry
 //to the vector. there the described the constructor within Manager.h
-BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop)
+BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NodeLow, BDD_ID NodeHigh, BDD_ID NodeTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
-    BDDTable.push_back({NodeName, NodeID, NoteHigh, NoteLow, NoteTop});
+    BDDTable.push_back({NodeName, NodeID, NodeHigh, NodeLow, NodeTop});
+    size_t BDDKey= CalcCompKey(NodeTop,NodeLow,NodeHigh);
+    BDDTable_hash[BDDKey]=NodeID;
     //ID is always position -1
     return uniqueTableSize() -1;
 }
@@ -376,6 +382,13 @@ BDD_ID Manager::GetLow(BDD_ID ID)
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
+    size_t BDDKey= CalcCompKey(x,rLow,rHigh);
+    if(BDDTable_hash.find(BDDKey)==BDDTable_hash.end())
+    {
+        return createNode("",uniqueTableSize(),rLow,rHigh,x);
+    }
+    return BDDTable_hash[BDDKey];
+    /*
     for (auto & loop_object : BDDTable)
     {
         if (loop_object.TopVar_Entry==x && loop_object.Low_Entry==rLow && loop_object.High_Entry==rHigh)
@@ -384,6 +397,7 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
         }
     }
     return createNode("",uniqueTableSize(),rLow,rHigh,x);
+     */
 }
 
 //Add Entry to Computed Table with the ID f,g,h and r.
