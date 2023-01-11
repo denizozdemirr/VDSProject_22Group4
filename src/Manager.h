@@ -8,6 +8,7 @@
 #include "ManagerInterface.h"
 #include <vector>
 #include <unordered_map>
+#include <boost/unordered_map.hpp>
 namespace ClassProject {
 
     const BDD_ID TrueID=1;
@@ -26,12 +27,12 @@ namespace ClassProject {
     class Manager : public ManagerInterface
     {
     private:
-        std::vector<BDDEntry> BDDTable;
-        std::unordered_map< size_t, BDD_ID> COMPTable;
-        //std::unordered_map< size_t, BDDEntry>BDDTable;
-        std::unordered_map< size_t, BDD_ID> BDDTable_hash;
-        std::unordered_map< size_t, BDD_ID> CoFactorTrue_hash;
-        std::unordered_map< size_t, BDD_ID> CoFactorFalse_hash;
+        //std::vector<BDDEntry> BDDTable;
+        boost::unordered_map< size_t, BDDEntry> BDDTable;
+        boost::unordered_map< size_t, BDD_ID> COMPTable;
+        boost::unordered_map< size_t, BDD_ID> BDDTable_hash;
+        boost::unordered_map< size_t, BDD_ID> CoFactorTrue_hash;
+        boost::unordered_map< size_t, BDD_ID> CoFactorFalse_hash;
     public:
         Manager();
         ~Manager();
