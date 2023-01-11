@@ -104,7 +104,7 @@ TEST_F(ManagerTests,CHECKneg)
     ClassProject::BDD_ID Aneg = manager.neg(2);
     EXPECT_EQ(manager.GetLow(Aneg),1);
     EXPECT_EQ(manager.GetHigh(Aneg),0);
-
+    EXPECT_EQ(manager.topVar(Aneg),2);
 }
 
 //Check and2 function, we check if the the LowSuccesor and HighSuccesor of the created node correspondends to the expected values

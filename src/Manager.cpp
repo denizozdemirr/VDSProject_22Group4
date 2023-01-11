@@ -88,87 +88,114 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
-    /*
-    for (auto & loop_object : COMPTable)
-    {
-        if (loop_object.f == i && loop_object.g == t && loop_object.h == e)
-        {
-            return loop_object.r;
-        }
+        //Standard triples
 
-    }
-     */
-
-
-    //Before we search for anything in Computed Table, we need to perform Standard Triples
-    if(!isConstant(i) && !isConstant(t) && !isConstant(e))
-    {
         //ite(F,F,G)->ite(F,1,G)
-        if(i==t && i!=e)
+        if (i == t && i != e)
         {
-            t=True();
+            t = True();
         }
         //ite(F,G,F)->ite(F,G,0)
-        if(i==e && i!=t)
+        else if (i == e && i != t)
         {
-            e=False();
+            e = False();
         }
+        /*
         //ite(F,G,not(F))->ite(F,G,1)
-        if(i==e && i!=t)
+        else if (i == topVar(e) && i != t)
         {
-            e=True();
+            e = True();
         }
         //ite(F,not(F),G)->ite(F,0,G)
-        if(i==e && i!=t)
-        {
-            t=False();
+        else if (i == topVar(t) && i != e) {
+            t = False();
         }
-    }
+         */
+    BDD_ID i_temp=i;
+    BDD_ID t_temp=t;
+    BDD_ID e_temp=e;
 
+    //equivalent pairs:
+        //ite(F,1,G)=(G,1,F)
+        if (t == True() && topVar(i)> topVar(e))
+        {
+            i_temp=e;
+            t_temp=t;
+            e_temp=i;
+        }
+        else if(t == True() && topVar(i)==topVar(e) && i>e)
+        {
+            i_temp=e;
+            t_temp=t;
+            e_temp=i;
+        }
+        //ite(F,G,0)=(G,F,0)
+        else if (e == False() && topVar(i)> topVar(t))
+        {
+            i_temp=t;
+            t_temp=i;
+            e_temp=e;
+        }
+        else if(e == False() && topVar(i)==topVar(t) && i>t)
+        {
+            i_temp=t;
+            t_temp=i;
+            e_temp=e;
+        }
+        /*
+        //ite(F,G,1)=ite(neg(G),neg(F),1) G=Top(neg(G) ->ite(neg(G),neg(F),1)=ite(Top(t),Top(i),e)
+        else if (e == True() && topVar(topVar(i)) > topVar(topVar(t)))
+        {
+            i_temp= topVar(t);
+            t_temp= topVar(i);
+            e_temp=e;
+        }
+        else if(e == True() && topVar(topVar(i))==topVar(topVar(t)) && topVar(i)>topVar(t))
+        {
+            i_temp= topVar(t);
+            t_temp= topVar(i);
+            e_temp=e;
+        }
+
+        //ite(F,0,G)=ite(neg(G),0,neg(f))
+        else if (t == False() && topVar(topVar(i))>topVar(topVar(e)))
+        {
+            i_temp= topVar(e);
+            t_temp= t;
+            e_temp= topVar(i);
+        }
+        else if(e == True() && topVar(i)==topVar(t) && topVar(i)>topVar(t))
+        {
+            i_temp= topVar(e);
+            t_temp= t;
+            e_temp= topVar(i);
+        }
+        //ite(F,G,not(G))=ite(G,F,not(F))
+        else if (isVariable(t) && isVariable(e) && topVar(i)> topVar(t))
+        {
+            i_temp=t;
+            t_temp=i;
+            e_temp=neg(i);
+        }
+        else if(isVariable(t) && isVariable(e) && topVar(i)==topVar(t) && i>t)
+        {
+            i_temp=t;
+            t_temp=i;
+            e_temp=neg(i);
+        }
+        */
+
+    i=i_temp;
+    t=t_temp;
+    e=e_temp;
     size_t CompKey = CalcCompKey(i,t,e);
     if(COMPTable.find(CompKey)!=COMPTable.end())
     {
         return COMPTable[CompKey];
     }
-    /*
-    //equivalent pairs:
-    if(!isConstant(i) && (!isConstant(t) || !isConstant(e)))
-    {
-        //ite(F,1,G)=(G,1,F)
-        if (t == True()) {
-            CompKey = CalcCompKey(e, t, i);
-            if (COMPTable.find(CompKey) != COMPTable.end()) {
-                return COMPTable[CompKey];
-            }
-        }
-        //ite(F,G,0)=(G,F,0)
-        if (e == False()) {
-            CompKey = CalcCompKey(t, i, e);
-            if (COMPTable.find(CompKey) != COMPTable.end()) {
-                return COMPTable[CompKey];
-            }
-        }
-        //ite(F,G,1)=ite(neg(G),neg(F),1)
-        if (e == True()) {
-            CompKey = CalcCompKey(neg(t), neg(i), e);
-            if (COMPTable.find(CompKey) != COMPTable.end()) {
-                return COMPTable[CompKey];
-            }
-        }
-        //ite(F,0,G)=ite(neg(G),0,neg(f))
-        if (t == False()) {
-            CompKey = CalcCompKey(neg(e), t, neg(i));
-            if (COMPTable.find(CompKey) != COMPTable.end()) {
-                return COMPTable[CompKey];
-            }
-        }
-        //ite(F,G,not(G))=ite(G,F,not(F))
-        CompKey = CalcCompKey(t, i, neg(i));
-        if (COMPTable.find(CompKey) != COMPTable.end()) {
-            return COMPTable[CompKey];
-        }
-    }
-     */
+
+
+    //}
 
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
@@ -374,7 +401,8 @@ size_t Manager::uniqueTableSize()
 BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NodeLow, BDD_ID NodeHigh, BDD_ID NodeTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
-    BDDTable.push_back({NodeName, NodeID, NodeHigh, NodeLow, NodeTop});
+    //BDDTable.push_back({NodeName, NodeID, NodeHigh, NodeLow, NodeTop});
+    BDDTable[NodeID]={NodeName, NodeID, NodeHigh, NodeLow, NodeTop};
     size_t BDDKey= CalcCompKey(NodeTop,NodeLow,NodeHigh);
     BDDTable_hash[BDDKey]=NodeID;
     //ID is always position -1
