@@ -3,17 +3,17 @@
 #include <string>
 #include <iostream>
 #include <Manager.h>
+#include <unordered_map>
 
 using namespace ClassProject;
 
 //Done at first call of Manager .
 Manager::Manager(void)
 {
-    BDD_ID trash;
     BDDTable.clear();
     COMPTable.clear();
-    trash=createNode("FALSE",0,0,0,0);
-    trash=createNode( "TRUE",1,1,1,1);
+    createNode("FALSE",0,0,0,0);
+    createNode( "TRUE",1,1,1,1);
 }
 
 Manager::~Manager(){}
@@ -41,11 +41,7 @@ const BDD_ID &Manager::False()
 //Return 1 if ID f represents false or true note. Else return 0.
 bool Manager::isConstant(BDD_ID f)
 {
-    if (f==False() || f==True())
-    {
-        return True();
-    }
-    return False();
+        return f==False() || f==True();
 }
 
 //x is an variable if it's not false or true node and the top variable equals the id, returns 1 if x is an variable, 0 else.
@@ -72,18 +68,27 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 {
     //Pseudocode see script 2-17
     //if terminal case
-    if (i==True()){
-        return t;}
-    else if (i==False()){
-        return e;}
-    else if (t==True() && e==False()){
-        return i;}
-    else if (t==e){
-        return e;}
+    if (i==True())
+    {
+        return t;
+    }
+    else if (i==False())
+    {
+        return e;
+    }
+    else if (t==True() && e==False())
+    {
+        return i;
+    }
+    else if (t==e)
+    {
+        return e;
+    }
     //check if computed table has entry i, t or e
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
+    /*
     for (auto & loop_object : COMPTable)
     {
         if (loop_object.f == i && loop_object.g == t && loop_object.h == e)
@@ -92,6 +97,79 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         }
 
     }
+     */
+
+
+    //Before we search for anything in Computed Table, we need to perform Standard Triples
+    if(!isConstant(i) && !isConstant(t) && !isConstant(e))
+    {
+        //ite(F,F,G)->ite(F,1,G)
+        if(i==t && i!=e)
+        {
+            t=True();
+        }
+        //ite(F,G,F)->ite(F,G,0)
+        if(i==e && i!=t)
+        {
+            e=False();
+        }
+        //ite(F,G,not(F))->ite(F,G,1)
+        if(i==e && i!=t)
+        {
+            e=True();
+        }
+        //ite(F,not(F),G)->ite(F,0,G)
+        if(i==e && i!=t)
+        {
+            t=False();
+        }
+    }
+
+    size_t CompKey = CalcCompKey(i,t,e);
+    if(COMPTable.find(CompKey)!=COMPTable.end())
+    {
+        return COMPTable[CompKey];
+    }
+    /*
+    //equivalent pairs:
+    if(!isConstant(i) && (!isConstant(t) || !isConstant(e)))
+    {
+        //ite(F,1,G)=(G,1,F)
+        if (t == True()) {
+            CompKey = CalcCompKey(e, t, i);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,0)=(G,F,0)
+        if (e == False()) {
+            CompKey = CalcCompKey(t, i, e);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,1)=ite(neg(G),neg(F),1)
+        if (e == True()) {
+            CompKey = CalcCompKey(neg(t), neg(i), e);
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,0,G)=ite(neg(G),0,neg(f))
+        if (t == False()) {
+            CompKey = CalcCompKey(neg(e), t, neg(i));
+            if (COMPTable.find(CompKey) != COMPTable.end()) {
+                return COMPTable[CompKey];
+            }
+        }
+        //ite(F,G,not(G))=ite(G,F,not(F))
+        CompKey = CalcCompKey(t, i, neg(i));
+        if (COMPTable.find(CompKey) != COMPTable.end()) {
+            return COMPTable[CompKey];
+        }
+    }
+     */
+
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
 
@@ -135,7 +213,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID r = find_or_add_unique_table(ID_of_TopVar_temp,rLow,rHigh);
 
     //we update the computed table with the i,t,e pattern, to safe that we already computed it.
-    update_computed_table(i, t, e,r);
+    update_computed_table(CompKey,r);
 
     return r;
 }
@@ -143,26 +221,35 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 {
     //Check if f is a constant (true or false)
-    if (isConstant(f))
+    if (isConstant(f) || isConstant(x))
     {
         return f;
     }
+
     if (topVar(f)==x)
     {
         return GetHigh(f);
     }
-    else
+    if (topVar(f)>x)
     {
-        //Implementation of the given Pseudocode.
-        BDD_ID T = coFactorTrue(GetHigh(f),x);
-        BDD_ID F = coFactorTrue(GetLow(f),x);
-        return ite(topVar(f),T,F);
+        return f;
     }
+        //Implementation of the given Pseudocode.
+        size_t key = CalcCoFactorKey(f,x);
+        if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
+        {
+            BDD_ID T = coFactorTrue(GetHigh(f), x);
+            BDD_ID F = coFactorTrue(GetLow(f), x);
+            BDD_ID ID_ite= ite(topVar(f),T, F);
+            CoFactorTrue_hash[key]=ID_ite;
+            return ID_ite;
+        }
+        return CoFactorTrue_hash[key];
 }
 //Pseudo-Code was given in the documentation
 BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
 {
-    if (isConstant(f))
+    if (isConstant(f) || isConstant(x))
     {
         return f;
     }
@@ -170,13 +257,20 @@ BDD_ID Manager::coFactorFalse(BDD_ID f, BDD_ID x)
     {
         return GetLow(f);
     }
-    else
+    if (topVar(f)>x)
     {
-        //Implementation of the given Pseudocode.
-        BDD_ID T = coFactorFalse(GetHigh(f),x);
-        BDD_ID F = coFactorFalse(GetLow(f),x);
-        return ite(topVar(f),T,F);
+        return f;
     }
+    size_t key = CalcCoFactorKey(f,x);
+    if(CoFactorTrue_hash.find(key)==CoFactorTrue_hash.end())
+    {
+        BDD_ID T = coFactorFalse(GetHigh(f), x);
+        BDD_ID F = coFactorFalse(GetLow(f), x);
+        BDD_ID ID_ite= ite(topVar(f),T, F);
+        CoFactorTrue_hash[key]=ID_ite;
+        return ID_ite;
+    }
+    return CoFactorTrue_hash[key];
 }
 //The following 2 functions describe behaviour if x isn't described.
 //basically if just call the function coFactorTrue/False with one parameter, we call the function
@@ -195,7 +289,7 @@ BDD_ID Manager::neg(BDD_ID a)
 {
     return ite(a,False(),True());
 }
-//and given on slide 2-15 f and g = ite(f,g,0)
+//an4d given on slide 2-15 f and g = ite(f,g,0)
 BDD_ID Manager::and2(BDD_ID a, BDD_ID b)
 {
     return ite(a,b,False());
@@ -241,8 +335,12 @@ void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 {
     //root itself is always reachable
     nodes_of_root.insert(root);
-    if (isConstant(root)){return;}
-    else {
+    if (isConstant(root))
+    {
+        return;
+    }
+    else
+    {
         //We call findNodes again with high and low of variable, we use them as new root.
         findNodes(BDDTable[root].High_Entry, nodes_of_root);
         findNodes(BDDTable[root].Low_Entry, nodes_of_root);
@@ -251,8 +349,12 @@ void Manager::findNodes(const BDD_ID &root, std::set<BDD_ID> &nodes_of_root)
 
 void Manager::findVars(const BDD_ID &root, std::set<BDD_ID> &vars_of_root)
 {
-    if (isConstant(root)){return;}
-    else {
+    if (isConstant(root))
+    {
+        return;
+    }
+    else
+    {
         //if root is no leaf node insert the TopVar of root as first vars of root.
         vars_of_root.insert(BDDTable[root].TopVar_Entry);
         //We call findVars again with high and low of variable, we use them as new root.
@@ -269,10 +371,12 @@ size_t Manager::uniqueTableSize()
 
 //add an entry to the BDDTable (unique table), which is a std::vector. The .push_back adds object of class BDDEntry
 //to the vector. there the described the constructor within Manager.h
-BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NoteLow, BDD_ID NoteHigh, BDD_ID NoteTop)
+BDD_ID Manager::createNode(std::string NodeName, BDD_ID NodeID, BDD_ID NodeLow, BDD_ID NodeHigh, BDD_ID NodeTop)
 {
     // add element to the end of BDDTable, we use class constructor for that
-    BDDTable.push_back(BDDEntry(NodeName, NodeID, NoteHigh, NoteLow, NoteTop));
+    BDDTable.push_back({NodeName, NodeID, NodeHigh, NodeLow, NodeTop});
+    size_t BDDKey= CalcCompKey(NodeTop,NodeLow,NodeHigh);
+    BDDTable_hash[BDDKey]=NodeID;
     //ID is always position -1
     return uniqueTableSize() -1;
 }
@@ -294,6 +398,13 @@ BDD_ID Manager::GetLow(BDD_ID ID)
 BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
 {
     //for loop to check every element of the unique table
+    size_t BDDKey= CalcCompKey(x,rLow,rHigh);
+    if(BDDTable_hash.find(BDDKey)==BDDTable_hash.end())
+    {
+        return createNode("",uniqueTableSize(),rLow,rHigh,x);
+    }
+    return BDDTable_hash[BDDKey];
+    /*
     for (auto & loop_object : BDDTable)
     {
         if (loop_object.TopVar_Entry==x && loop_object.Low_Entry==rLow && loop_object.High_Entry==rHigh)
@@ -302,10 +413,25 @@ BDD_ID Manager::find_or_add_unique_table(BDD_ID x,BDD_ID rLow,BDD_ID rHigh)
         }
     }
     return createNode("",uniqueTableSize(),rLow,rHigh,x);
+     */
 }
 
 //Add Entry to Computed Table with the ID f,g,h and r.
-void Manager::update_computed_table(BDD_ID f,BDD_ID g,BDD_ID h, BDD_ID r)
+void Manager::update_computed_table(size_t Key, BDD_ID r)
 {
-    COMPTable.push_back(ComputedEntry(f,g,h,r));
+    COMPTable[Key]=r;
 }
+
+size_t Manager::CalcCompKey(BDD_ID f, BDD_ID g, BDD_ID h)
+{
+    size_t key = (f<<42)+(g<<21)+h;
+    return key;
+}
+
+//Computation of hash-key for unordered map of Cofactor is less computation intense as the CalcCompkey
+size_t Manager::CalcCoFactorKey(BDD_ID f, BDD_ID x)
+{
+    size_t key = (f<<32)+x;
+    return key;
+}
+
