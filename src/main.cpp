@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     BDD_ID c=m.createVar("c");
     BDD_ID d=m.createVar("d");
     //implementation of f. f=and2(and2(c,d),or2(a,b))=and2(or2(a,b),and2(c,d))
-    BDD_ID f=m.and2(m.and2(c,d),m.or2(a,b));
+    BDD_ID f=m.neg(m.and2(m.and2(c,d),m.or2(a,b)));
 
     //output of unique table to check if table equals to the given one in the example
     //first get the size of the unique_table to know how many rows we need to output
@@ -35,7 +35,8 @@ int main(int argc, char* argv[])
         //this line does the tab
         std::cout << "  ";
         //output the High Variable of the row. We need to cast the datatype!
-        //row is datatype int (integer) but the function GetHigh expects an input of datatype BDD_ID.
+        //row is datatype int (integer) but the function GetHigh expects
+        // an input of datatype BDD_ID.
         //So we change the Datatype by adding the dataype().
         std::cout << m.GetHigh(BDD_ID (row));
         std::cout << "  ";
@@ -46,6 +47,52 @@ int main(int argc, char* argv[])
         std::cout << m.topVar(BDD_ID (row));
         std::cout << "  "<< std::endl;
     }
-    std::cout << "Implementation done" << std::endl;
-}
+    std::cout << f << std::endl;
+    /*
+        //find all top notes of the function we'd like to negate.
+        //Creating set needed for findVars, to get every TopVar of i.
+        std::set<BDD_ID> test;
+        //the iterator is needed in the loop to access the elements in test.
+        std::set<BDD_ID>:: iterator it;
+        //access the findVars
+        m.findVars(9,test);
+        //The first node we create has the highest topVar. the last node the create has the lowest topVar
+        it = test.end();
+        //get the size of the set test, so we know how much entries we need to allocate for the topVar.
+        int size_test = test.size();
+        //initaliese an array that holds all values, but in the opposite order compared to test.
+        BDD_ID ans[size_test];
+        std::cout << "size of ans variable" << std::endl;
+        std::cout << size_test << std::endl;
+        int ans_it = 0;
+        do
+        {
+            it--;
+            if(it != test.end())
+            {
+                ans[ans_it]  = *it;
+            }
+            ans_it++;
+        }while(it!=test.begin());
+
+        for(int loop_counter=0;loop_counter<size_test;loop_counter++)
+        {
+            if (loop_counter==0)
+            {
+                std::cout << "1. IF" << std::endl;
+                m.createNode("",m.uniqueTableSize(),m.True(),m.False(),ans[loop_counter]);
+            }
+            else if(loop_counter<size_test-1)
+            {
+                std::cout << "2. IF" << std::endl;
+                m.createNode("",m.uniqueTableSize(),m.True(),m.False(),ans[loop_counter]);
+            }
+            else
+            {
+                std::cout << "3. IF" << std::endl;
+                m.createNode("",m.uniqueTableSize(),m.uniqueTableSize()-1,m.uniqueTableSize()-2,ans[loop_counter]);
+            }
+        }
+        */
+    }
 
