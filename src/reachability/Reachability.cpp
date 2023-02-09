@@ -98,7 +98,7 @@ void Reachability::setInitState(const std::vector<bool> &stateVector)
     {
         throw std::runtime_error("Runtime_error: size does not match with number of state bits!");
     }
-    for(int count = 0;count>init_state.size(); count++)
+    for(int count = 0;count<init_state.size(); count++)
     {
         init_state[count] = stateVector[count];
     }
