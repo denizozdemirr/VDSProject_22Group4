@@ -20,7 +20,7 @@ namespace ClassProject
     private:
         //Additional Functions
         BDD_ID calcTau();
-        BDD_ID characteristicFunction(const std::vector<bool> &stateVector);
+        BDD_ID characteristicFunction();
         BDD_ID exist_quant(BDD_ID f, BDD_ID x);
         BDD_ID uni_quant(BDD_ID f, BDD_ID x);
         BDD_ID img_not_s_func(BDD_ID f);

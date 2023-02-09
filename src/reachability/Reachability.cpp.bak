@@ -47,7 +47,7 @@ bool Reachability::isReachable(const std::vector<bool> &stateVector)//slide 5-3
     BDD_ID Tau = calcTau();
     //4 and 5 in part 3
     BDD_ID c_r_it = characteristicFunction();
-    BDD_ID c_r,temp_ir,img_s_dot,img_s,temp1,temp2;
+    BDD_ID c_r,temp_ir,img_s_dot,img_s;
     //You can also compare the lines before to script 5-10
     //here you can see the next step, which are described in part3 too.
     //the mix of both made a running code :)
@@ -61,28 +61,14 @@ bool Reachability::isReachable(const std::vector<bool> &stateVector)//slide 5-3
     }while(c_r!=c_r_it);//10 in part3 fixed point reached
     //need to implement 11 in part 3
     //temp_ir = characteristicFunction(stateVector);
-    /*
     for(int count = 0; count < state_bits.size(); count++)
     {
         if(state_bits[count])
             c_r_it = coFactorTrue(c_r_it,state_bits[count]);
         else
             c_r_it = coFactorFalse(c_r_it,state_bits[count]);
-    }*/
-    //state Vector in bit to bdd_id
-    if(stateVector[0])
-        temp2 = state_bits[0];
-    else
-        temp2 = neg(state_bits[0]);
-    for(int count = 1; count <stateVector.size();count++)
-    {
-        if(stateVector[count])
-            temp1 = state_bits[count];
-        else
-            temp1 = neg(state_bits[count]);
-        temp2 = and2(temp2,temp1);
     }
-    return (c_r_it==temp2);
+    return (c_r_it==True());
 }
 
 void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionFunctions)
@@ -125,12 +111,10 @@ BDD_ID Reachability::calcTau()
 BDD_ID Reachability::characteristicFunction()
 {
     BDD_ID temp1,temp2;
-    //bool to bdd_id
     if(init_state[0])
         temp1 = True();
     else
         temp1 = False();
-
     temp2 = xnor2(state_bits[0],temp1);
     for(int count = 1; count <init_state.size();count++)
     {

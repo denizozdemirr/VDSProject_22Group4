@@ -36,20 +36,47 @@ TEST_F(ReachabilityTest, SetInitState)
     EXPECT_NO_THROW( {fsm2->setInitState({false,true});});
 }
 
-TEST_F(ReachabilityTest, isReachableFunctionalityTest) {
-    fsm2->setInitState({false,false});
-    //For the default initial state, all bits are assumed to be set to false.
+TEST_F(ReachabilityTest, isReachableNoTrans) {
+    /*
+     * for detailed description see test isReachableFunctionalityTest
+     * by default this functionality uses the identiy
+     * {s0';s1'}={s_0;s_1}
+     *  So the same state is always reachable again, but any other state isnt reachable.
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    fsm2->setInitState({false,false});//State A
     EXPECT_TRUE(fsm2->isReachable({false, false}));
     EXPECT_FALSE(fsm2->isReachable({false, true}));
     EXPECT_FALSE(fsm2->isReachable({true, false}));
     EXPECT_FALSE(fsm2->isReachable({true, true}));
-    //after calling the constructor, the only reachable state should be the initial state. because The default transition
-    // function for each state bit is the identity function
-    fsm2->setInitState({false,true});
+
+    fsm2->setInitState({true,false});//State B
+    EXPECT_FALSE(fsm2->isReachable({false, false}));
+    EXPECT_TRUE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
+
+    fsm2->setInitState({false,true});//State C
     EXPECT_FALSE(fsm2->isReachable({true, false}));
     EXPECT_FALSE(fsm2->isReachable({false, false}));
     EXPECT_TRUE(fsm2->isReachable({false, true}));
     EXPECT_FALSE(fsm2->isReachable({true, true}));
+
+    fsm2->setInitState({true,true});//State D
+    EXPECT_FALSE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({true, true}));
 }
 
 
@@ -65,60 +92,83 @@ TEST_F(ReachabilityTest, isReachableError) {
 }
 
 //originally given
-/*
-TEST_F(ReachabilityTest, HowTo_Example) { // NOLINT
 
+TEST_F(ReachabilityTest, isReachableFunctionalityTest) { // NOLINT
+
+
+    /* We have a 2^2 space of possible states :=4
+     * let_s name this states in alphabetical order : a,b,c,d
+     * each state is represented by it's corresponding bits
+     * general state={state_bit0;state_bit1}
+     * -> A={false,false}; B={true,false}; C={false,true}; D={true,true}
+     * the transition is described by {state_bit0';state_bit1'}={bool_function(s_0;s_1);bool_function(s_0;s_1)}
+     * let's make an example function: {state_bit0';state_bit1'}={neg(state_bit0);and2(state_bit0;state_bit1)}
+     * Now let's perform this on any inital state that is possible.
+     *
+     ***Initial State A
+     * {false,false} (keep  state_bit0';state_bit1'} in mind)
+     * ->{neg(false);and2(false;false)} ->{true,false}
+     * Next State is B
+     * ->{neg(true);and2(true;false)} ->{false,false}
+     * Next State is A
+     * ->{neg(false);and2(false;false)} ->{true,false}
+     * Next State is B
+     * !! ->A->B->A->B->...
+     ***Initial State B
+     * {true,false}
+     * ->{neg(true);and2(true;false)} ->{false,false}
+     * Next State is A
+     * !! There we Go again ->B->A->B->A....
+      ***Initial State C
+      * {false,true}
+      * ->{neg(false);and2(false;true)} ->{true,false}
+      * Next State is B
+      * ->{neg(true);and2(true;false)} ->{false,false}
+      * Next State is A
+      * ->{neg(false);and2(false;false)} ->{true,false}
+      * !!!There we go again ->C->B->A->B->...
+      ***Initial State D
+      * {true,true}
+      * ->{neg(true);and2(true;true)} ->{false,true}
+      * Next State is B
+      * ->{neg(false);and2(false;true)} ->{true,false}
+      * Next State is A
+      * !!!->D->B->A->B->...
+      *
+      * !!!!!!!!!!!!!!!!!!!!!!!!!CONCLUSION!!!!!!!!!!!!!!!!!!!!!!!!!
+      * A and B are always reachable, C and D are never reachable.
+      * A={false,false}; B={true,false}; C={false,true}; D={true,true}
+      *
+     */
     BDD_ID s0 = stateVars2.at(0);
     BDD_ID s1 = stateVars2.at(1);
 
     transitionFunctions.push_back(fsm2->neg(s0)); // s0' = not(s0)
-    transitionFunctions.push_back(fsm2->neg(s1)); // s1' = not(s1)
+    transitionFunctions.push_back(fsm2->and2(s0,s1)); // s1' = and(s0;s1)
     fsm2->setTransitionFunctions(transitionFunctions);
 
-    fsm2->setInitState({false,false});
+    fsm2->setInitState({false,false});//State A
+    EXPECT_TRUE(fsm2->isReachable({false, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
 
-    ASSERT_TRUE(fsm2->isReachable({false, false}));
-    ASSERT_FALSE(fsm2->isReachable({false, true}));
-    ASSERT_FALSE(fsm2->isReachable({true, false}));
-    ASSERT_TRUE(fsm2->isReachable({true, true}));
+    fsm2->setInitState({true,false});//State B
+    EXPECT_TRUE(fsm2->isReachable({false, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
+
+    fsm2->setInitState({false,true});//State C
+    EXPECT_TRUE(fsm2->isReachable({false, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
+
+    fsm2->setInitState({true,true});//State D
+    EXPECT_TRUE(fsm2->isReachable({false, false}));
+    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({true, false}));
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
 }
-*/
-
-TEST_F(ReachabilityTest, FourStatesExample) {
-    std::vector<BDD_ID> stateVars4 = fsm4->getStates();
-    std::vector<BDD_ID> transitionFunctions;
-    BDD_ID s0 = stateVars4.at(0);
-    BDD_ID s1 = stateVars4.at(1);
-    BDD_ID s2 = stateVars4.at(2);
-    BDD_ID s3 = stateVars4.at(3);
-
-    transitionFunctions.push_back(fsm4->neg(s3)); // s0' = not(s0)
-    transitionFunctions.push_back(fsm4->neg(s0)); // s1' = not(s1)
-    transitionFunctions.push_back(fsm4->neg(s1)); // s2' = not(s1)
-    transitionFunctions.push_back(fsm4->neg(s2)); // s3' = not(s1)
-
-    fsm4->setTransitionFunctions(transitionFunctions);
-
-    fsm4->setInitState({false,false,true,false});
-
-    EXPECT_TRUE(fsm4->isReachable({false,false,true,false}));
-    EXPECT_TRUE(fsm4->isReachable({true,true,true,false}));
-    EXPECT_TRUE(fsm4->isReachable({true, false,false,false}));
-    EXPECT_TRUE(fsm4->isReachable({true,false,true,true}));
-
-    EXPECT_FALSE(fsm4->isReachable({false,false,false,false}));
-    EXPECT_FALSE(fsm4->isReachable({false,false,false,true}));
-    EXPECT_FALSE(fsm4->isReachable({false,false,true,true}));
-    EXPECT_FALSE(fsm4->isReachable({false,true,false,false}));
-    EXPECT_FALSE(fsm4->isReachable({false,true,false,true}));
-    EXPECT_FALSE(fsm4->isReachable({false,true,true,false}));
-    EXPECT_FALSE(fsm4->isReachable({false,true,true,true}));
-    EXPECT_FALSE(fsm4->isReachable({true,false,false,true}));
-    EXPECT_FALSE(fsm4->isReachable({true,false,true,false}));
-    EXPECT_FALSE(fsm4->isReachable({true,true,false,false}));
-    EXPECT_FALSE(fsm4->isReachable({true,true,false,true}));
-    EXPECT_FALSE(fsm4->isReachable({true,true,true,true}));
-
-}
-
 #endif
