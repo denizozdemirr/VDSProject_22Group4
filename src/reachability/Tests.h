@@ -45,15 +45,11 @@ TEST_F(ReachabilityTest, isReachableFunctionalityTest) {
     EXPECT_FALSE(fsm2->isReachable({true, true}));
     //after calling the constructor, the only reachable state should be the initial state. because The default transition
     // function for each state bit is the identity function
-}
-TEST_F(ReachabilityTest, isReachableFunctionalityTest2) {
     fsm2->setInitState({false,true});
     EXPECT_FALSE(fsm2->isReachable({true, false}));
     EXPECT_FALSE(fsm2->isReachable({false, false}));
     EXPECT_TRUE(fsm2->isReachable({false, true}));
     EXPECT_FALSE(fsm2->isReachable({true, true}));
-    //after calling the constructor, the only reachable state should be the initial state. because The default transition
-    // function for each state bit is the identity function
 }
 
 

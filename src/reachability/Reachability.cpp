@@ -86,7 +86,7 @@ void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionF
         }
     }
     //actually setting of the transmission function
-    for(int count=0;count>init_state.size();count++)
+    for(int count=0;count< transitionFunctions.size();count++)
     {
         trans_func[count] = transitionFunctions[count];
     }

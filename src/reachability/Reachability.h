@@ -31,6 +31,20 @@ namespace ClassProject
         std::vector<BDD_ID>state_bits;
         std::vector<BDD_ID>next_state_bits;
         std::vector<BDD_ID>trans_func;
+    /*
+    private:
+        std::vector<BDD_ID> state_variables;
+        std::vector<BDD_ID> next_state_variables;
+        std::vector<BDD_ID> transition_functions;
+        std::vector<bool> init_state;
+
+        //Additional Functions
+        BDD_ID translation_relation();
+        BDD_ID bool_to_BDD_ID(const std::vector<bool> &stateVector);
+        BDD_ID existential_quantification(BDD_ID f, BDD_ID x);
+        BDD_ID img(BDD_ID f);
+        BDD_ID img_nxt(BDD_ID f);
+    */
     };
 
 }
