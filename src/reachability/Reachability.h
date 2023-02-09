@@ -16,6 +16,7 @@ namespace ClassProject
         bool isReachable(const std::vector<bool> &stateVector) override; //slide 5-3
         void setTransitionFunctions(const std::vector<BDD_ID> &transitionFunctions) override;//DONE
         void setInitState(const std::vector<bool> &stateVector) override;
+        std::vector<bool> getInitState();
 
     private:
         //Additional Functions
@@ -27,9 +28,6 @@ namespace ClassProject
         std::vector<BDD_ID>state_bits;
         std::vector<BDD_ID>next_state_bits;
         std::vector<BDD_ID>trans_func;
-        BDD_ID trans_relation;
-        BDD_ID reachability_root;
-
     };
 
 }

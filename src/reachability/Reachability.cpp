@@ -106,7 +106,7 @@ void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionF
     }
     for(int count=0; count < transitionFunctions.size();count++)
     {
-        if(transitionFunctions[count] >= uniqueTableSize() )
+        if(transitionFunctions[count] > uniqueTableSize() )
         {
             throw std::runtime_error("Error:An unknown ID is provided!");
         }
@@ -126,14 +126,7 @@ void Reachability::setInitState(const std::vector<bool> &stateVector)
     }
     for(int count = 0;count>init_state.size(); count++)
     {
-        if (stateVector[count])
-        {
-            init_state[count] = 1;
-        }
-        else
-        {
-            init_state[count] = 0;
-        }
+        init_state[count] = stateVector[count];
     }
 }
 
@@ -177,4 +170,10 @@ BDD_ID Reachability::characteristicFunction(const std::vector<bool> &stateVector
         temp1 = and2(temp1, temp2);
     }
     return temp1;
+}
+
+//functions for debugging only!
+std::vector<bool> Reachability::getInitState()
+{
+    return init_state;
 }

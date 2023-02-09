@@ -68,7 +68,6 @@ namespace ClassProject {
          * @throws std::runtime_error if size does not match with number of state bits
          */
         virtual void setInitState(const std::vector<bool> &stateVector) = 0;
-
     };
 }
 
