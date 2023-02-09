@@ -56,46 +56,20 @@ bool Reachability::isReachable(const std::vector<bool> &stateVector)//slide 5-3
     BDD_ID Tau = calcTau();
     //4 and 5 in part 3
     BDD_ID c_r_it = characteristicFunction(init_state);
-    BDD_ID c_r,temp1,temp2,temp_state_bit,img_s_dot,img_s;
+    BDD_ID c_r,temp_ir,img_s_dot,img_s;
     //You can also compare the lines before to script 5-10
     //here you can see the next step, which are described in part3 too.
     //the mix of both made a running code :)
     do
     {
-        //6 in part3
         c_r = c_r_it;
-        temp1 = and2(c_r,Tau);
-
-
-        for(int count=0; count < state_bits.size(); count++)
-        {
-            //existential quantification
-            temp_state_bit=state_bits[state_bits.size()-1-count];
-            temp2 = coFactorFalse(temp1,temp_state_bit);
-            temp1 = coFactorTrue(temp1, temp_state_bit);
-            temp1 = or2(temp1, temp2);
-        }
-
-        img_s_dot=temp1;
-
-        for(int count=0; count < state_bits.size(); count++)
-        {
-            temp2 = xnor2(state_bits[count], next_state_bits[count]);
-            temp1 =and2(temp1, temp2);
-        }
-        for(int count=0; count < state_bits.size(); count++)
-        {
-            //existential quantification
-            temp_state_bit=state_bits[next_state_bits.size()-1-count];
-            temp2 = coFactorFalse(temp1,temp_state_bit);
-            temp1 = coFactorTrue(temp1, temp_state_bit);
-            temp1 = or2(temp1, temp2);
-        }
-        img_s = temp1;
+        temp_ir = and2(c_r,Tau);
+        img_s_dot= img_not_s_func(temp_ir);
+        img_s    = img_s_func(img_s_dot);
         c_r_it = or2(c_r,img_s);
     }while(c_r!=c_r_it);
-    temp1 = characteristicFunction(stateVector);
-    return (temp1==and2(temp1,c_r));
+    temp_ir = characteristicFunction(stateVector);
+    return (temp_ir == and2(temp_ir,c_r));
 }
 
 void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionFunctions)
@@ -135,16 +109,16 @@ BDD_ID Reachability::calcTau()
 {
     //Example is (s'_0 and delta_0 or not(s'_0) and not(delta_0)) and (s'_1 an delta_1 or not(s'_1)  and not(delta_1)) and ...
     // this equals to (s'_0 xnor delta_0) and (s'_1 xnor delta_1)
-    BDD_ID temp_left, temp_right;
-    temp_left = xnor2(next_state_bits[0], trans_func[0]);
+    BDD_ID temp1, temp2;
+    temp1 = xnor2(next_state_bits[0], trans_func[0]);
     //now calculate that xnor2 for every next state s_1..s_2 and so on, and always and2 this to the previous temp_left
     //and safe result in temp_left again. we do this until we did this for every state (state.size()-1)
     for(int count=1; count < state_bits.size(); count++)
     {
-        temp_right = xnor2(next_state_bits[count], trans_func[count]);
-        temp_left = and2(temp_left,temp_right);
+        temp2 = xnor2(next_state_bits[count], trans_func[count]);
+        temp1 = and2(temp1,temp2);
     }
-    return temp_left;
+    return temp1;
 }
 BDD_ID Reachability::characteristicFunction(const std::vector<bool> &stateVector)
 {
@@ -157,7 +131,8 @@ BDD_ID Reachability::characteristicFunction(const std::vector<bool> &stateVector
     {
         temp1 = neg(state_bits[0]);
     }
-    for(int count = 0; count <stateVector.size(); count++)
+
+    for(int count = 1; count <stateVector.size(); count++)
     {
         if(stateVector[count])
         {
@@ -172,8 +147,40 @@ BDD_ID Reachability::characteristicFunction(const std::vector<bool> &stateVector
     return temp1;
 }
 
-//functions for debugging only!
-std::vector<bool> Reachability::getInitState()
+BDD_ID Reachability::exist_quant(BDD_ID f, BDD_ID x)
 {
-    return init_state;
+    //existential quantification
+    BDD_ID temp1,temp2;
+    temp1 = coFactorTrue(f, x);
+    temp2 = coFactorFalse(f, x);
+    return or2(temp1, temp2);
+}
+
+BDD_ID Reachability::img_not_s_func(BDD_ID f)
+{
+    BDD_ID temp1=f;
+    for(int count = 0; count < state_bits.size(); count++)
+    {
+        temp1 = exist_quant(temp1, state_bits[state_bits.size()-1-count]);
+    }
+    return temp1;
+}
+
+BDD_ID Reachability::img_s_func(BDD_ID f)
+{
+    BDD_ID temp1,temp2;
+    temp1=f;
+    //cs is calculated with characteristicFunction()
+    for(int count=0; count < state_bits.size(); count++)
+    {
+        temp2 = xnor2(state_bits[count], next_state_bits[count]);
+        temp1 =and2(temp1, temp2);
+    }
+    //temp1=and2(f,characteristicFunction(init_state));
+
+    for(int count=0; count < state_bits.size(); count++)
+    {
+        temp1 = exist_quant(temp1, next_state_bits[state_bits.size()-1-count]);
+    }
+    return temp1;
 }

@@ -37,25 +37,23 @@ TEST_F(ReachabilityTest, SetInitState)
 }
 
 TEST_F(ReachabilityTest, isReachableFunctionalityTest) {
-    BDD_ID s0 = stateVars2.at(0);
-    BDD_ID s1 = stateVars2.at(1);
-
-    transitionFunctions.push_back(fsm2->neg(s0)); // s0' = not(s0)
-    transitionFunctions.push_back(fsm2->neg(s1)); // s1' = not(s1)
-    fsm2->setTransitionFunctions(transitionFunctions);
-
     fsm2->setInitState({false,false});
     //For the default initial state, all bits are assumed to be set to false.
     EXPECT_TRUE(fsm2->isReachable({false, false}));
     EXPECT_FALSE(fsm2->isReachable({false, true}));
     EXPECT_FALSE(fsm2->isReachable({true, false}));
-    EXPECT_TRUE(fsm2->isReachable({true, true}));
-    //after calling the constructor, the only reachable state should be the initial state. because The default transition function for each state bit is the identity function.
+    EXPECT_FALSE(fsm2->isReachable({true, true}));
+    //after calling the constructor, the only reachable state should be the initial state. because The default transition
+    // function for each state bit is the identity function
+}
+TEST_F(ReachabilityTest, isReachableFunctionalityTest2) {
     fsm2->setInitState({false,true});
     EXPECT_FALSE(fsm2->isReachable({true, false}));
     EXPECT_FALSE(fsm2->isReachable({false, false}));
     EXPECT_TRUE(fsm2->isReachable({false, true}));
     EXPECT_FALSE(fsm2->isReachable({true, true}));
+    //after calling the constructor, the only reachable state should be the initial state. because The default transition
+    // function for each state bit is the identity function
 }
 
 
