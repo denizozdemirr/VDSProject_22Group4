@@ -84,7 +84,29 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     {
         return e;
     }
-    //check if computed table has entry i, t or e
+    /*
+    else if(t==False() && e==True())
+    {   //find all top notes of the function we'd like to negate.
+        std::set<BDD_ID> test;
+        std::set<BDD_ID>:: iterator it;
+        findVars(i,test);
+        int size_test=test.size();
+        BDD_ID ans[size_test];
+        it = test.end();
+        for(BDD_ID counter_test=size_test;counter_test>0;counter_test--)
+        {
+            ans[counter_test-1]=*it;
+        }
+        it = test.begin();
+        //ans = *it;
+        createNode("",uniqueTableSize(),True(),False(),ans[test.size()]);
+        for(BDD_ID counter_neg=test.size();0<counter_neg;counter_neg--)
+        {
+            createNode("",uniqueTableSize(),True(),uniqueTableSize()-1,ans[counter_neg]);
+        }
+        return createNode("",uniqueTableSize(),uniqueTableSize(),uniqueTableSize()-2,ans[0]);
+    }
+    */
     //we just check for the exact same pattern so far.
     //Maybe we can advance that somehow to also check for patterns not exactly included in the computeted table,
     //but represented by the same boolean function
@@ -115,76 +137,12 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     BDD_ID t_temp=t;
     BDD_ID e_temp=e;
 
-    //equivalent pairs:
-        //ite(F,1,G)=(G,1,F)
-        if (t == True() && topVar(i)> topVar(e))
-        {
-            i_temp=e;
-            t_temp=t;
-            e_temp=i;
-        }
-        else if(t == True() && topVar(i)==topVar(e) && i>e)
-        {
-            i_temp=e;
-            t_temp=t;
-            e_temp=i;
-        }
-        //ite(F,G,0)=(G,F,0)
-        else if (e == False() && topVar(i)> topVar(t))
-        {
-            i_temp=t;
-            t_temp=i;
-            e_temp=e;
-        }
-        else if(e == False() && topVar(i)==topVar(t) && i>t)
-        {
-            i_temp=t;
-            t_temp=i;
-            e_temp=e;
-        }
-        /*
-        //ite(F,G,1)=ite(neg(G),neg(F),1) G=Top(neg(G) ->ite(neg(G),neg(F),1)=ite(Top(t),Top(i),e)
-        else if (e == True() && topVar(topVar(i)) > topVar(topVar(t)))
-        {
-            i_temp= topVar(t);
-            t_temp= topVar(i);
-            e_temp=e;
-        }
-        else if(e == True() && topVar(topVar(i))==topVar(topVar(t)) && topVar(i)>topVar(t))
-        {
-            i_temp= topVar(t);
-            t_temp= topVar(i);
-            e_temp=e;
-        }
+    //lets perform this within the boolean operations
 
-        //ite(F,0,G)=ite(neg(G),0,neg(f))
-        else if (t == False() && topVar(topVar(i))>topVar(topVar(e)))
-        {
-            i_temp= topVar(e);
-            t_temp= t;
-            e_temp= topVar(i);
-        }
-        else if(e == True() && topVar(i)==topVar(t) && topVar(i)>topVar(t))
-        {
-            i_temp= topVar(e);
-            t_temp= t;
-            e_temp= topVar(i);
-        }
-        //ite(F,G,not(G))=ite(G,F,not(F))
-        else if (isVariable(t) && isVariable(e) && topVar(i)> topVar(t))
-        {
-            i_temp=t;
-            t_temp=i;
-            e_temp=neg(i);
-        }
-        else if(isVariable(t) && isVariable(e) && topVar(i)==topVar(t) && i>t)
-        {
-            i_temp=t;
-            t_temp=i;
-            e_temp=neg(i);
-        }
-        */
+    //two standard pairs are implemented within the ite function
 
+    //ite (F,G,1)=ite(not(G),not(F),1)
+    //ite (F,0,G)=ite(not(G),ß,not(F))
     i=i_temp;
     t=t_temp;
     e=e_temp;
@@ -193,12 +151,68 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
     {
         return COMPTable[CompKey];
     }
-
-
+/*
+    if(t==False() && e==True())
+    {
+        //find all top notes of the function we'd like to negate.
+        //Creating set needed for findVars, to get every TopVar of i.
+        std::set<BDD_ID> test;
+        //the iterator is needed in the loop to access the elements in test.
+        std::set<BDD_ID>:: iterator it;
+        //access the findVars
+        findVars(i,test);
+        //The first node we create has the highest topVar. the last node the create has the lowest topVar
+        it = test.end();
+        //get the size of the set test, so we know how much entries we need to allocate for the topVar.
+        int size_test = test.size();
+        //initaliese an array that holds all values, but in the opposite order compared to test.
+        BDD_ID ans[size_test];
+        //std::cout << size_test << std::endl; //debugging purpose
+        int ans_it = 0;
+        do
+        {
+            it--;
+            if(it != test.end())
+            {
+                ans[ans_it]  = *it;
+            }
+            ans_it++;
+        }while(it!=test.begin());
+        for(int loop_counter=0;loop_counter<size_test;loop_counter++)
+        {
+            if (loop_counter==0)
+            {
+                createNode("",uniqueTableSize(),True(),False(),ans[loop_counter]);
+            }
+            else if(loop_counter<size_test-1)
+            {
+                createNode("",uniqueTableSize(),True(),uniqueTableSize()-1,ans[loop_counter]);
+            }
+            else
+            {
+                return createNode("",uniqueTableSize(),uniqueTableSize()-1,uniqueTableSize()-2,ans[loop_counter]);
+            }
+        }
+    }
+*/
     //}
 
     //Get the smallest value of topvariable from entry i, t and e
     //BDD_ID ID_of_TopVar_temp=GetMinTop(i, t, e);
+
+
+
+
+
+
+    // co factor of and is and of cofactors.
+    //this fits for any operation boolea operation.. and.. or..neg..xor..and so on
+    //We might save computation time by this. we check in the iteration function if we perform any of the boolean functions
+    // if this is true, we dont perform the classic cofactor calculation, we perform the boolean function
+    //of the the cofactors of the given nodes.
+    //neg = ite(a,False(),True());and = ite(a,b,False());or = ite(a,True(),b);
+    //nand = ite(a,neg(b),True());nor = ite(a,False(),neg(b));xor = ite(a,neg(b),b); xnor = ite(a,b,neg(b))
+    //
 
     //set top of i as first possible candidate for being the smallest number
     BDD_ID ID_of_TopVar_temp=topVar(i);
@@ -212,6 +226,8 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
         ID_of_TopVar_temp=topVar(e);
     }
 
+
+
     //for rHigh we need cofactor true for i,t,e
     BDD_ID i_co_true= coFactorTrue(i,ID_of_TopVar_temp);
     BDD_ID t_co_true= coFactorTrue(t,ID_of_TopVar_temp);
@@ -224,13 +240,13 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 
     //the results of the prevision calculations is used to recursively (call the same function with itself)
     //call the ite-function.
+    //add the functionallity of ite_const by hecking if rHigh is not COnstant
     BDD_ID rHigh = ite(i_co_true,t_co_true,e_co_true);
     BDD_ID rLow = ite(i_co_false,t_co_false,e_co_false);
 
     //if rHigh and rLow equal, the ID representing them is returned.
     if (rHigh==rLow)
     {
-        BDD_ID rReturn =rHigh;
         return rHigh;//return rHigh;
     }
     //Else we call the function find_or_add_unique_table, which checks the unique table for
@@ -248,6 +264,7 @@ BDD_ID Manager::ite(BDD_ID i, BDD_ID t, BDD_ID e)
 BDD_ID Manager::coFactorTrue(BDD_ID f, BDD_ID x)
 {
     //Check if f is a constant (true or false)
+    //add negation terminal case
     if (isConstant(f) || isConstant(x))
     {
         return f;
@@ -319,12 +336,32 @@ BDD_ID Manager::neg(BDD_ID a)
 //an4d given on slide 2-15 f and g = ite(f,g,0)
 BDD_ID Manager::and2(BDD_ID a, BDD_ID b)
 {
-    return ite(a,b,False());
+    //ite(F,G,0)=ite(G,F,0)
+    //smallest ID always first.
+    if(topVar(a)<topVar(b))
+    {
+        return ite(a,b,False());
+    }
+    else if(a<b && topVar(a)==topVar(b))
+    {
+        return ite(a,b,False());
+    }
+    return ite(b,a,False());
 }
 //or given on slide 2-15 f or g = ite(f,1,g)
 BDD_ID Manager::or2(BDD_ID a, BDD_ID b)
 {
-    return ite(a,True(),b);
+    //ite(F,1,G)=ite(G,1,F)
+    //smallest ID always first.
+    if(topVar(a)<topVar(b))
+    {
+        return ite(a,True(),b);
+    }
+    else if(a<b && topVar(a)==topVar(b))
+    {
+        return ite(a,True(),b);
+    }
+    return ite(b,True(),a);
 }
 //xor given on slide 2-15 f xor g = ite(f,neg(g),g)
 BDD_ID Manager::xor2(BDD_ID a, BDD_ID b)
@@ -347,7 +384,17 @@ BDD_ID Manager::nor2(BDD_ID a, BDD_ID b)
 //if neg(f) is true , output g, else output neg(g)
 BDD_ID Manager::xnor2(BDD_ID a, BDD_ID b)
 {
-    return ite(a,b,neg(b));
+    //ite(F,G,0)=ite(G,F,0)
+    //smallest ID always first.
+    if(topVar(a)<topVar(b))
+    {
+        return ite(a,b,neg(b));
+    }
+    else if(a<b && topVar(a)==topVar(b))
+    {
+        return ite(a,b,neg(b));
+    }
+    return ite(b,a,neg(a));
 }
 
 //Outputs every ID of TopVar that is reachable by Node with ID root
