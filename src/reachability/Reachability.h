@@ -31,7 +31,25 @@ namespace ClassProject
         std::vector<BDD_ID>state_bits;
         std::vector<BDD_ID>next_state_bits;
         std::vector<BDD_ID>trans_func;
+
     /*
+    private:
+
+        bool changed;
+
+        std::vector<BDD_ID> states;
+
+        std::vector<BDD_ID> nstates;
+
+        std::vector<BDD_ID> transitions;
+
+        std::vector<bool> initialState;
+
+        BDD_ID charcteristic_function;
+
+        void symbolic_compute_reachable_states();
+    */
+     /*
     private:
         std::vector<BDD_ID> state_variables;
         std::vector<BDD_ID> next_state_variables;
@@ -45,7 +63,16 @@ namespace ClassProject
         BDD_ID img(BDD_ID f);
         BDD_ID img_nxt(BDD_ID f);
     */
+     /*
+    private:
+        std::vector<BDD_ID> states;
+        std::vector<BDD_ID> next_states;
+        std::vector<BDD_ID> transition_functions;
+        std::vector<bool> initial_state;
+        BDD_ID C_Relation;
+        bool needs_update;
+        void getReachableStates();
+    */
     };
-
 }
 #endif

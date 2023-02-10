@@ -41,18 +41,7 @@ TEST_F(ReachabilityTest, isReachableNoTrans) {
      * for detailed description see test isReachableFunctionalityTest
      * by default this functionality uses the identiy
      * {s0';s1'}={s_0;s_1}
-     *  So the same state is always reachable again, but any other state isnt reachable.
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+     *  So the same state is always reachable again, but any other state isnt reachable
      */
     fsm2->setInitState({false,false});//State A
     EXPECT_TRUE(fsm2->isReachable({false, false}));
@@ -81,7 +70,7 @@ TEST_F(ReachabilityTest, isReachableNoTrans) {
 
 
 TEST_F(ReachabilityTest, getStates) {
-    std::vector<BDD_ID> States_Expected = {2, 3};
+    std::vector<BDD_ID> States_Expected = {2, 4};
     EXPECT_EQ(States_Expected, fsm2->getStates());
 }
 
@@ -130,13 +119,13 @@ TEST_F(ReachabilityTest, isReachableFunctionalityTest) { // NOLINT
       ***Initial State D
       * {true,true}
       * ->{neg(true);and2(true;true)} ->{false,true}
-      * Next State is B
+      * Next State is C
       * ->{neg(false);and2(false;true)} ->{true,false}
-      * Next State is A
-      * !!!->D->B->A->B->...
+      * Next State is B
+      * !!!->D->C->B->A->B->...
       *
       * !!!!!!!!!!!!!!!!!!!!!!!!!CONCLUSION!!!!!!!!!!!!!!!!!!!!!!!!!
-      * A and B are always reachable, C and D are never reachable.
+      * A and B are always reachable, C is reachable from D, D is never reachable
       * A={false,false}; B={true,false}; C={false,true}; D={true,true}
       *
      */
@@ -161,15 +150,14 @@ TEST_F(ReachabilityTest, isReachableFunctionalityTest) { // NOLINT
 
     fsm2->setInitState({false,true});//State C
     EXPECT_TRUE(fsm2->isReachable({false, false}));
-    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({false, true}));
     EXPECT_TRUE(fsm2->isReachable({true, false}));
     EXPECT_FALSE(fsm2->isReachable({true, true}));
 
     fsm2->setInitState({true,true});//State D
     EXPECT_TRUE(fsm2->isReachable({false, false}));
-    EXPECT_FALSE(fsm2->isReachable({false, true}));
+    EXPECT_TRUE(fsm2->isReachable({false, true}));
     EXPECT_TRUE(fsm2->isReachable({true, false}));
-    EXPECT_FALSE(fsm2->isReachable({true, true}));
-    //Added comment to commit the actual comment
+    EXPECT_TRUE(fsm2->isReachable({true, true}));
 }
 #endif

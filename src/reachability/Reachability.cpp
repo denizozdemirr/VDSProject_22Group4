@@ -20,20 +20,13 @@ Reachability::Reachability(unsigned int stateSize) : ReachabilityInterface(state
         state_bits.push_back(bddIDVariable);
         //Init of transition functions
         trans_func.push_back(bddIDVariable);
-    }
-
-    for (int count=0; count < stateSize; count++)//do the same for next state s'_i
-    {
+        init_state.push_back(false);
         next_state_name = "s" + std::to_string(count) + "'";
         bddIDVariable = createVar(state_name);
         next_state_bits.push_back(bddIDVariable);
     }
-
-    for (int count=0; count < stateSize; count++)//create init_state
-    {
-        init_state.push_back(false);
-    }
 }
+
 const std::vector<BDD_ID> &Reachability::getStates() const
 {
     return state_bits;
@@ -44,9 +37,9 @@ bool Reachability::isReachable(const std::vector<bool> &stateVector)//slide 5-3
     if(stateVector.size()!=state_bits.size())
         throw std::runtime_error("Runtime_error: The size does not match the number of state bits!");
     //3 in part3
-    BDD_ID Tau = calcTau();
+    BDD_ID Tau = calcTau();// correct
     //4 and 5 in part 3
-    BDD_ID c_r_it = characteristicFunction();
+    BDD_ID c_r_it = characteristicFunction();//correct
     BDD_ID c_r,temp_ir,img_s_dot,img_s,temp1,temp2;
     //You can also compare the lines before to script 5-10
     //here you can see the next step, which are described in part3 too.
@@ -54,35 +47,19 @@ bool Reachability::isReachable(const std::vector<bool> &stateVector)//slide 5-3
     do
     {
         c_r = c_r_it;//6 in part 3
-        temp_ir = and2(c_r,Tau);//7 in part 3
-        img_s_dot= img_not_s_func(temp_ir);//7 in part 3
-        img_s    = img_s_func(img_s_dot);//8 in part 3
-        c_r_it = or2(c_r,img_s);// 9 in part 3
+        temp_ir = and2(c_r,Tau);//7 in part 3 //correct
+        img_s_dot= img_not_s_func(temp_ir);//7 in part 3 //correct
+        img_s    = img_s_func(img_s_dot);//8 in part 3 //correct
+        c_r_it = or2(c_r,img_s);// 9 in part 3 //correct
     }while(c_r!=c_r_it);//10 in part3 fixed point reached
-    //need to implement 11 in part 3
-    //temp_ir = characteristicFunction(stateVector);
-    /*
-    for(int count = 0; count < state_bits.size(); count++)
+    for(int count = 0; count < state_bits.size(); count++)//11 in part3
     {
-        if(state_bits[count])
+        if(stateVector[count])
             c_r_it = coFactorTrue(c_r_it,state_bits[count]);
         else
             c_r_it = coFactorFalse(c_r_it,state_bits[count]);
-    }*/
-    //state Vector in bit to bdd_id
-    if(stateVector[0])
-        temp2 = state_bits[0];
-    else
-        temp2 = neg(state_bits[0]);
-    for(int count = 1; count <stateVector.size();count++)
-    {
-        if(stateVector[count])
-            temp1 = state_bits[count];
-        else
-            temp1 = neg(state_bits[count]);
-        temp2 = and2(temp2,temp1);
     }
-    return (c_r_it==temp2);
+    return (c_r_it);
 }
 
 void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionFunctions)
@@ -96,7 +73,7 @@ void Reachability::setTransitionFunctions(const std::vector<BDD_ID> &transitionF
             throw std::runtime_error("Error:An unknown ID is provided!");
     }
     //actually setting of the transmission function
-        trans_func = transitionFunctions;
+    trans_func = transitionFunctions;
 }
 
 void Reachability::setInitState(const std::vector<bool> &stateVector)
@@ -126,36 +103,10 @@ BDD_ID Reachability::characteristicFunction()
 {
     BDD_ID temp1,temp2;
     //bool to bdd_id
-    if(init_state[0])
-        temp1 = True();
-    else
-        temp1 = False();
-
-    temp2 = xnor2(state_bits[0],temp1);
+    temp2 = xnor2(state_bits[0],init_state[0]);
     for(int count = 1; count <init_state.size();count++)
-    {
-        if(init_state[count])
-            temp1 = True();
-        else
-            temp1 = False();
-        temp2 = and2(temp2,xnor2(state_bits[count],temp1));
-    }
+        temp2 = and2(temp2,xnor2(state_bits[count],init_state[count]));
     return temp2;
-    /*
-    if(stateVector[0])
-        temp1 = state_bits[0];
-    else
-        temp1 = neg(state_bits[0]);
-    for(int count = 1; count <stateVector.size(); count++)
-    {
-        if(stateVector[count])
-            temp2 = state_bits[count];
-        else
-            temp2 = neg(state_bits[count]);
-        temp1 = and2(temp1, temp2);
-    }
-    return temp1;
-     */
 }
 
 BDD_ID Reachability::exist_quant(BDD_ID f, BDD_ID x)
@@ -187,8 +138,6 @@ BDD_ID Reachability::img_s_func(BDD_ID f)
         temp2 = xnor2(state_bits[count], next_state_bits[count]);
         temp1 =and2(temp1, temp2);
     }
-    //temp1=and2(f,characteristicFunction(init_state));
-
     for(int count=state_bits.size()-1; count >= 0 ; count--)
     {
         temp1 = exist_quant(temp1, next_state_bits[count]);
